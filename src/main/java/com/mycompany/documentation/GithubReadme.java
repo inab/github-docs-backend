@@ -68,8 +68,6 @@ public class GithubReadme {
             
             try {
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                
-                Constants.load();
                 con.setRequestProperty("Authorization",  "Bearer " +  Constants.TOKEN);
                 
      

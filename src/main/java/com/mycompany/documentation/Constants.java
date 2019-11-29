@@ -8,6 +8,7 @@ package com.mycompany.documentation;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import javax.servlet.ServletContext;
 
 
 
@@ -28,7 +29,7 @@ public class Constants {
         try
         {
             Properties appSettings = new Properties();
-            FileInputStream fis = new FileInputStream("config.properties"); //put config properties file to buffer
+            FileInputStream fis = new FileInputStream("root to config file"); //put config properties file to buffer    
             appSettings.load(fis); //load config.properties file
             TOKEN = appSettings.getProperty("token");
             System.out.println(TOKEN);
