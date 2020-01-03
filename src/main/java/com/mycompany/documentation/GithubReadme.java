@@ -31,77 +31,54 @@ import org.jsoup.parser.Tag;
 
 @Path("/gh")
 @Produces(MediaType.TEXT_HTML)
-public class GithubReadme {
+public class GithubReadme extends HtmlREADMEfromURL {
     
     
-        
-    /**
-     * Constructs the github url that has to be queried
-     * @param i the name of the repository
-     * @return String url
-     * @throws MalformedURLException 
-     */
-    public String constructUrl(String i) throws MalformedURLException{
-        return githubApi+"/"+owner+"/"+i+"/"+readmeEndpoint;
-    }
-    
-    
-    
-    
-    /**
-     * Main function of the program, queries the url, decodes the content 
-     * which is encoded en base64 and then passes it to MdHtmlParser be 
-     * converted to HTML finally adds the link to the original github README.md
-     * page and returns in HTML format to the web
-     * @param id
-     * @return HTML Format
-     * @throws IOException 
-     */
     @GET
     @Path("/{id}")
     @Produces(MediaType.TEXT_HTML)
     public String repoById(
             @PathParam("repolist") String repolist,
             @PathParam("id") String id) throws IOException{
-            String urlString = constructUrl(id);
-            URL url = new URL(urlString);
-            
-            try {
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestProperty("Authorization",  "Bearer " +  Constants.TOKEN);
-                
-     
-                BufferedReader read = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
-                JsonReader reader = Json.createReader(read);
-
-                JsonObject object = reader.readObject();
-                String content = object.getJsonString("content").getString();
-                String htmlUrl = object.getJsonString("html_url").getString();
-
-                byte[] contentByte = Base64.decodeBase64(content);
-
-                String s = new String(contentByte);
-
-                MdHtmlParser mdhp = new MdHtmlParser();
-
-                String docs = mdhp.mdtoHtml(s, id);
-
-                Element aGithubLink = new Element(Tag.valueOf("a"),"")
-                        .attr("href", htmlUrl)
-                        .addClass("readme")
-                        .text("README.md");
-
-                Element divBody = new Element(Tag.valueOf("div"),"")
-                        .appendChild(aGithubLink)
-                        .append(docs);
-
-                return divBody.toString();
-            } catch (IOException e){
-                System.out.println(e);
-            }        
-        return "ups sorry something somewhere broke. Our trained monkeys have"
-                + " been informed and are working on it. Please try later !";
+            return getREADMEfromURL(id,owner);
+//            String urlString = constructUrl(id,owner);
+//            URL url = new URL(urlString);
+//            
+//            try {
+//                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+//                con.setRequestProperty("Authorization",  "Bearer " +  Constants.TOKEN);
+//                
+//     
+//                BufferedReader read = new BufferedReader(
+//                    new InputStreamReader(con.getInputStream()));
+//                JsonReader reader = Json.createReader(read);
+//
+//                JsonObject object = reader.readObject();
+//                String content = object.getJsonString("content").getString();
+//                String htmlUrl = object.getJsonString("html_url").getString();
+//
+//                byte[] contentByte = Base64.decodeBase64(content);
+//
+//                String s = new String(contentByte);
+//
+//                MdHtmlParser mdhp = new MdHtmlParser();
+//
+//                String docs = mdhp.mdtoHtml(s, id);
+//
+//                Element aGithubLink = new Element(Tag.valueOf("a"),"")
+//                        .attr("href", htmlUrl)
+//                        .addClass("readme")
+//                        .text("README.md");
+//
+//                Element divBody = new Element(Tag.valueOf("div"),"")
+//                        .appendChild(aGithubLink)
+//                        .append(docs);
+//
+//                return divBody.toString();
+//            } catch (IOException e){
+//                System.out.println(e);
+//            }        
+//        return "ups sorry something somewhere broke. Our trained monkeys have"
+//                + " been informed and are working on it. Please try later !";
     }
-    
 }

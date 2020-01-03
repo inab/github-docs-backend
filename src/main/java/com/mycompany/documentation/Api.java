@@ -18,7 +18,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/")
 public class Api {
-
+    
     /**
      * Returns the list of repositories for the menu of the documentation page
      * @param repolist the name of the repolist eg: oeb, wg .. etc
