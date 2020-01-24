@@ -23,6 +23,6 @@ public class MyServletContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent arg0) {
         //Notification that the web application initialization process is starting
-        Constants.load();
+        //Constants.load();
     }
 }

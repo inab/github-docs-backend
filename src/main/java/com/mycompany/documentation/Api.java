@@ -5,6 +5,8 @@
  */
 package com.mycompany.documentation;
 
+import java.util.Collection;
+import java.util.Map;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -27,8 +29,8 @@ public class Api {
     @GET
     @Path("/{repolist}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String[] repoListToHtml(@PathParam("repolist") String repolist){
-        String [] list = Constants.oebRepos;
+    public Map<String,String> repoListToHtml(@PathParam("repolist") String repolist){
+        Map<String,String> list = Constants.oebRepos;
         if(!repolist.isEmpty()){
             switch (repolist){
                 case "oeb":

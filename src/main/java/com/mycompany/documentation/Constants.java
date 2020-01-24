@@ -7,6 +7,9 @@ package com.mycompany.documentation;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import javax.servlet.ServletContext;
 
@@ -20,20 +23,19 @@ public class Constants {
     
     
     
-    public Constants() {
-    }
-    static String TOKEN = "";
     
-    public static void load()
-     {
-        try
+    public static String TOKEN = "";
+    
+    static 
+    {
+        try(InputStream in = Constants.class.getClassLoader().getResourceAsStream("/META-INF/config.properties"))
         {
-            Properties appSettings = new Properties();
-            FileInputStream fis = new FileInputStream("root to config file"); //put config properties file to buffer    
-            appSettings.load(fis); //load config.properties file
-            TOKEN = appSettings.getProperty("token");
-            System.out.println(TOKEN);
-            fis.close();
+            if(in!=null){
+                Properties appSettings = new Properties();
+                appSettings.load(in);
+                TOKEN = appSettings.getProperty("token");
+            }
+            
         }
         catch(IOException e)
         {
@@ -47,25 +49,26 @@ public class Constants {
     static String githubRaw = "https://raw.githubusercontent.com";
     static String owner = "inab";
     static String readmeEndpoint = "readme";
-    public static String[] oebRepos = {
-        "benchmarking-data-model",
-        "opeb-enrichers",
-        "openEBenchAPI",
-        "elixibilitas",
-        "benchmarking",
-        "biotools-bioconda-ids",
-        "opeb-submission",
-        "openEbench-frontend",
-        "TCGA_benchmarking_workflow",
-        "TCGA_benchmarking_dockers",
-        "mg-process_TCGA_CD",
+    public static Map<String,String> oebRepos = new HashMap<String,String>();
+    static{
+        oebRepos.put("benchmarking-data-model","OEB data model");
+        oebRepos.put("opeb-enrichers","OEB enricher");
+        oebRepos.put("elixibilitas","OEB tool API");
+        oebRepos.put("benchmarking","OEB validation tools");
+        oebRepos.put("biotools-bioconda-ids","Bioconda ids");
+        oebRepos.put("openEbench-frontend","OEB Frontend");
+        oebRepos.put("TCGA_benchmarking_workflow","TCGA workflow");
+        oebRepos.put("TCGA_benchmarking_dockers","TCGA dockers");
+        oebRepos.put("mg-process_TCGA_CD","TCGA MG process");
     };
-    public static String[] widgetGalleryRepos = {
-        "uptime-chart-OEB",
-        "citations-widget-OEB",
-        "OpenEBench_scientific_visualizer",
-        "Scientific_Barplot",
-        "benchmarking_workflows_results_visualizer",
+    public static Map<String,String> widgetGalleryRepos = new HashMap<String,String>();
+    static{
+        widgetGalleryRepos.put("uptime-chart-OEB","OEB uptime chart");
+        widgetGalleryRepos.put("citations-widget-OEB","OEB citation chart");
+        widgetGalleryRepos.put("OpenEBench_scientific_visualizer","OEB Scatter plot");
+        widgetGalleryRepos.put("Scientific_Barplot","OEB Bar plot");
+        widgetGalleryRepos.put("benchmarking_workflows_results_visualizer","OEB VRE results visualizer");
+        widgetGalleryRepos.put("bench_event_table","OEB benchmark summay table");
     };
     
 }

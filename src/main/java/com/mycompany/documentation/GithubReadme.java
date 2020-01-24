@@ -41,44 +41,5 @@ public class GithubReadme extends HtmlREADMEfromURL {
             @PathParam("repolist") String repolist,
             @PathParam("id") String id) throws IOException{
             return getREADMEfromURL(id,owner);
-//            String urlString = constructUrl(id,owner);
-//            URL url = new URL(urlString);
-//            
-//            try {
-//                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-//                con.setRequestProperty("Authorization",  "Bearer " +  Constants.TOKEN);
-//                
-//     
-//                BufferedReader read = new BufferedReader(
-//                    new InputStreamReader(con.getInputStream()));
-//                JsonReader reader = Json.createReader(read);
-//
-//                JsonObject object = reader.readObject();
-//                String content = object.getJsonString("content").getString();
-//                String htmlUrl = object.getJsonString("html_url").getString();
-//
-//                byte[] contentByte = Base64.decodeBase64(content);
-//
-//                String s = new String(contentByte);
-//
-//                MdHtmlParser mdhp = new MdHtmlParser();
-//
-//                String docs = mdhp.mdtoHtml(s, id);
-//
-//                Element aGithubLink = new Element(Tag.valueOf("a"),"")
-//                        .attr("href", htmlUrl)
-//                        .addClass("readme")
-//                        .text("README.md");
-//
-//                Element divBody = new Element(Tag.valueOf("div"),"")
-//                        .appendChild(aGithubLink)
-//                        .append(docs);
-//
-//                return divBody.toString();
-//            } catch (IOException e){
-//                System.out.println(e);
-//            }        
-//        return "ups sorry something somewhere broke. Our trained monkeys have"
-//                + " been informed and are working on it. Please try later !";
     }
 }
