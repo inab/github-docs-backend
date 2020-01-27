@@ -38,11 +38,25 @@ public class Api {
                 case "wg":
                     list = Constants.widgetGalleryRepos;
                     break;
+                case "vre":
+                    list = Constants.vre;
+                    break;
                 default:
                     break;
             }
         }
         return list;
+    };
+    
+    /**
+     * Returns list of projects for the documentation hub.
+     * 
+     */
+    @GET
+    @Path("/projects")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String,String> getProjects(){
+        return Constants.projects;
     };
     
 

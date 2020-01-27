@@ -47,6 +47,21 @@ public class Constants {
     static String githubRaw = "https://raw.githubusercontent.com";
     static String owner = "inab";
     static String readmeEndpoint = "readme";
+
+    
+    public static Map<String,String> projects = new HashMap<String,String>();
+    static {
+        projects.put("oeb", "OPENEBENCH");
+        projects.put("wg", "WIDGET GALLERY");
+        projects.put("vre", "OEB VRE");
+    };
+    
+    public static Map<String,String> vre = new HashMap<String,String>();
+    static{
+        vre.put("openVRE", "Open VRE");
+        vre.put("vre-process_nextflow-executor", "OEB VRE Nextflow executor");
+    };
+    
     public static Map<String,String> oebRepos = new HashMap<String,String>();
     static{
         oebRepos.put("benchmarking-data-model","OEB data model");
