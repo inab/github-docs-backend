@@ -5,7 +5,6 @@
  */
 package com.mycompany.documentation;
 
-import java.util.Collection;
 import java.util.Map;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

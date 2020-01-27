@@ -51,7 +51,7 @@ abstract class HtmlREADMEfromURL {
             
             try {
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                //con.setRequestProperty("Authorization",  "Bearer " +  Constants.TOKEN);
+                con.setRequestProperty("Authorization",  "Bearer " +  Constants.TOKEN);
                 
      
                 BufferedReader read = new BufferedReader(
