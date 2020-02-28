@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.documentation;
+package com.mycompany.documentation.api;
 
-import static com.mycompany.documentation.Constants.*;
+import static com.mycompany.documentation.api.Constants.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -51,7 +51,7 @@ abstract class HtmlREADMEfromURL {
             
             try {
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestProperty("Authorization",  "Bearer " +  Constants.TOKEN);
+               // con.setRequestProperty("Authorization",  "Bearer " +  Constants.TOKEN);
                 
      
                 BufferedReader read = new BufferedReader(

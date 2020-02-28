@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.documentation;
+package com.mycompany.documentation.api;
 
+import com.mycompany.documentation.model.Links;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -55,7 +58,7 @@ public class Api {
     @GET
     @Path("/projects")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String,String> getProjects(){
+    public ArrayList<Links> getProjects(){
         return Constants.projects;
     };
     

@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.documentation;
+package com.mycompany.documentation.api;
 
+import com.mycompany.documentation.model.Links;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -48,13 +51,19 @@ public class Constants {
     static String owner = "inab";
     static String readmeEndpoint = "readme";
 
-    
-    public static Map<String,String> projects = new HashMap<String,String>();
+    public static ArrayList<Links> projects = new ArrayList<Links>();
     static {
-        projects.put("oeb", "OPENEBENCH");
-        projects.put("wg", "WIDGET GALLERY");
-        projects.put("vre", "OEB VRE");
+        projects.add(new Links("oeb", "OPENEBENCH"));
+        projects.add(new Links("wg", "WIDGET GALLERY"));
+        projects.add(new Links("vre", "OEB VRE"));
     };
+    
+//    public static Map<String,String> projects = new HashMap<String,String>();
+//    static {
+//        projects.put("oeb", "OPENEBENCH");
+//        projects.put("wg", "WIDGET GALLERY");
+//        projects.put("vre", "OEB VRE");
+//    };
     
     public static Map<String,String> vre = new HashMap<String,String>();
     static{
