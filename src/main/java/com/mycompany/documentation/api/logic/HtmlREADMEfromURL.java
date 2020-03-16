@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.documentation.api;
+package com.mycompany.documentation.api.logic;
 
-import static com.mycompany.documentation.api.Constants.*;
+import com.mycompany.documentation.api.logic.MdHtmlParser;
+import static com.mycompany.documentation.api.logic.Constants.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,7 +24,7 @@ import org.jsoup.parser.Tag;
  *
  * @author Vicky Sundesha <vicky.sundesha@bsc.es>
  */
-abstract class HtmlREADMEfromURL {
+public abstract class HtmlREADMEfromURL {
     /**
      * Constructs the github url that has to be queried
      * @param i the name of the repository
@@ -51,7 +52,7 @@ abstract class HtmlREADMEfromURL {
             
             try {
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
-               // con.setRequestProperty("Authorization",  "Bearer " +  Constants.TOKEN);
+                con.setRequestProperty("Authorization",  "Bearer " +  Constants.TOKEN);
                 
      
                 BufferedReader read = new BufferedReader(

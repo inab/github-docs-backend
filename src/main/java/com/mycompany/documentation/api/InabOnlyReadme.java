@@ -5,7 +5,8 @@
  */
 package com.mycompany.documentation.api;
 
-import static com.mycompany.documentation.api.Constants.*;
+import com.mycompany.documentation.api.logic.HtmlREADMEfromURL;
+import static com.mycompany.documentation.api.logic.Constants.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -31,14 +32,21 @@ import org.jsoup.parser.Tag;
 
 @Path("/gh")
 @Produces(MediaType.TEXT_HTML)
-public class GithubReadme extends HtmlREADMEfromURL {
+public class InabOnlyReadme extends HtmlREADMEfromURL {
     
-    
+    /**
+     * This should be deleted and only use AllReadme.java
+     * This is used to retive the readms from all inab repositories since we already 
+     * know the owner we only need to pass in the repo name
+     * @param id
+     * @return
+     * @throws IOException
+     */
     @GET
     @Path("/{id}")
     @Produces(MediaType.TEXT_HTML)
     public String repoById(
-            @PathParam("repolist") String repolist,
+            //@PathParam("repolist") String repolist,
             @PathParam("id") String id) throws IOException{
             return getREADMEfromURL(id,owner);
     }

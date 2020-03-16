@@ -5,6 +5,7 @@
  */
 package com.mycompany.documentation.api;
 
+import com.mycompany.documentation.api.logic.Constants;
 import com.mycompany.documentation.model.Links;
 import java.util.ArrayList;
 import java.util.List;

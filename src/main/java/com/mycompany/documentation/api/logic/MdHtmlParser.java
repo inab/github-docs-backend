@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.documentation.api;
+package com.mycompany.documentation.api.logic;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -15,7 +15,7 @@ import org.commonmark.renderer.html.AttributeProvider;
 import org.commonmark.renderer.html.AttributeProviderContext;
 import org.commonmark.renderer.html.AttributeProviderFactory;
 import org.commonmark.renderer.html.HtmlRenderer;
-import static com.mycompany.documentation.api.Constants.*;
+import static com.mycompany.documentation.api.logic.Constants.*;
 /**
  *
  * @author Vicky Sundesha <vicky.sundesha@bsc.es>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.documentation.api;
+package com.mycompany.documentation.api.logic;
 
 import com.mycompany.documentation.model.Links;
 import java.io.IOException;
@@ -17,16 +17,17 @@ import java.util.Properties;
 
 
 /**
- *  This class contains all the static variables
  * @author Vicky Sundesha <vicky.sundesha@bsc.es>
  */
+
+//This class contains all the static variables.
 public class Constants {
     
     
     
     
     public static String TOKEN = "";
-    
+    // This file is only on the server. It contains the Token
     static 
     {
         try(InputStream in = Constants.class.getClassLoader().getResourceAsStream("/META-INF/config.properties"))
@@ -45,11 +46,11 @@ public class Constants {
         }
     }
     
-    static String github = "https://github.com";
-    static String githubApi = "https://api.github.com/repos";
-    static String githubRaw = "https://raw.githubusercontent.com";
-    static String owner = "inab";
-    static String readmeEndpoint = "readme";
+    public static String github = "https://github.com";
+    public static String githubApi = "https://api.github.com/repos";
+    public static String githubRaw = "https://raw.githubusercontent.com";
+    public static String owner = "inab";
+    public static String readmeEndpoint = "readme";
 
     public static ArrayList<Links> projects = new ArrayList<Links>();
     static {
