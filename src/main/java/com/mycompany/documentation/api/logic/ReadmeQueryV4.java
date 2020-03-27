@@ -1,6 +1,6 @@
 package com.mycompany.documentation.api.logic;
 
-import static com.mycompany.documentation.api.logic.Constants.githubApiV4;
+import static com.mycompany.documentation.api.logic.Constants.*;
 import java.io.IOException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -17,7 +17,7 @@ public class ReadmeQueryV4 {
     public ReadmeQueryV4() {
     }
 
-    public String getReadmeAndUrlByReponameAndOwner(String repoName, String owner) {
+    public String getReadme(String repoName, String owner) {
         JSONObject jsonObj = new JSONObject();
 
         jsonObj.put("query", "query { \n"
@@ -34,6 +34,31 @@ public class ReadmeQueryV4 {
         return getJsonObj(jsonObj);
     }
 
+    public String getAllReadmes(String login) {
+        JSONObject jsonObj = new JSONObject();
+
+        jsonObj.put("query", "query { \n"
+                + "  repositoryOwner(login:\"" + login + "\"){\n"
+                + "    repositories(first:5){\n"
+                + "      totalCount\n"
+                + "      edges{\n"
+                + "        node{\n"
+                + "          name\n"
+                + "          url\n"
+                + "          object(expression: \"master:README.md\") {\n"
+                + "            ... on Blob {\n"
+                + "              text\n"
+                + "            }\n"
+                + "    	     }\n"
+                + "        }\n"
+                + "      }\n"
+                + "    }\n"
+                + "  }\n"
+                + "}");
+
+        return getJsonObj(jsonObj);
+    }
+
     public String getJsonObj(JSONObject jsonObj) {
         String res = "";
         try {
@@ -42,7 +67,7 @@ public class ReadmeQueryV4 {
             //define the http verb (GET, POST, PUT..)
             HttpPost post = new HttpPost(githubApiV4);
             //add the token to the header
-            post.addHeader("Authorization", "Bearer " + Constants.TOKEN);
+            post.addHeader("Authorization", "Bearer " + TOKEN);
             post.addHeader("Accept", "application/json");
             //add json object to post request
             post.setEntity(new StringEntity(jsonObj.toString()));

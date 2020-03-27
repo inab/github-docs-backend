@@ -12,9 +12,18 @@ public class ReadmeV4 {
     @GET
     @Path("/{repoName}/{owner}/readme")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getRepoReadmeByReponameAndOwner(@PathParam("repoName") String repoName, @PathParam("owner") String owner) {
+    public String getReadme(@PathParam("repoName") String repoName, @PathParam("owner") String owner) {
         ReadmeQueryV4 rq = new ReadmeQueryV4();
 
-        return rq.getReadmeAndUrlByReponameAndOwner(repoName, owner);
+        return rq.getReadme(repoName, owner);
+    }
+    
+    @GET
+    @Path("/{login}/readme")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllReadmes(@PathParam("login") String login) {
+        ReadmeQueryV4 rq = new ReadmeQueryV4();
+
+        return rq.getAllReadmes(login);
     }
 }

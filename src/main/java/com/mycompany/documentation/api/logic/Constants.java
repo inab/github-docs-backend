@@ -5,12 +5,9 @@
  */
 package com.mycompany.documentation.api.logic;
 
-import com.mycompany.documentation.model.Links;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -41,7 +38,7 @@ public class Constants {
     public static String githubApi = "https://api.github.com/repos";
     public static String githubApiV4 = "https://api.github.com/graphql";
     public static String githubRaw = "https://raw.githubusercontent.com";
-    public static String owner = "inab";
+    public static String owner, login = "inab";
     public static String readmeEndpoint = "readme";
 
 //    public static ArrayList<Links> projects = new ArrayList<Links>();
