@@ -6,9 +6,6 @@
 package com.mycompany.documentation.api;
 
 import com.mycompany.documentation.api.logic.Constants;
-import com.mycompany.documentation.model.Links;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -62,5 +59,4 @@ public class Api {
     public Map<String, String> getProjects() {
         return Constants.projects;
     }
-
 }

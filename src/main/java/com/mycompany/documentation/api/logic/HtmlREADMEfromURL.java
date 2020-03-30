@@ -5,7 +5,6 @@
  */
 package com.mycompany.documentation.api.logic;
 
-import com.mycompany.documentation.api.logic.MdHtmlParser;
 import static com.mycompany.documentation.api.logic.Constants.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -88,5 +87,4 @@ public abstract class HtmlREADMEfromURL {
         return "ups sorry something somewhere broke. Our trained monkeys have"
                 + " been informed and are working on it. Please try later !";
     }
-
 }

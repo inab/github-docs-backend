@@ -5,8 +5,10 @@
  */
 package com.mycompany.documentation.api.logic;
 
+import com.mycompany.documentation.model.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -38,10 +40,28 @@ public class Constants {
     public static String githubApi = "https://api.github.com/repos";
     public static String githubApiV4 = "https://api.github.com/graphql";
     public static String githubRaw = "https://raw.githubusercontent.com";
-    public static String owner, login = "inab";
+    public static String owner = "inab";
+    public static String login = "inab";
     public static String readmeEndpoint = "readme";
 
-//    public static ArrayList<Links> projects = new ArrayList<Links>();
+    public static ArrayList<Topic> topics = new ArrayList();
+
+    static {
+        topics.add(new Topic("Backend", "backend", "Code that runs on our servers or we use internally"));
+        topics.add(new Topic("Frontend", "frontend", "All kinds of web applications"));
+        topics.add(new Topic("Scientific", "scientific", "Everything that is related to the scientific benchmarking aspect of OEB"));
+        topics.add(new Topic("Technical", "technical", "Everything that is related to the technical monitoring aspect of OEB"));
+        topics.add(new Topic("VRE", "vre", "Code that is used anywhere in the VRE "));
+        topics.add(new Topic("API", "api", "All the REST endpoints Technical and Scientific used by any component of OEB"));
+        topics.add(new Topic("Workflow", "workflow", "The set of processes that define a benchmarking event in OEB"));
+        topics.add(new Topic("Visualizer", "visualizer", "Components or widgets created for OEB "));
+        topics.add(new Topic("Data model", "data_model", "Json schemas defined by OEB "));
+        topics.add(new Topic("Level1", "level1", "OEB architecture level 1. Storage and visualization of benchmarking results"));
+        topics.add(new Topic("Level2", "level2", "OEB architecture level 2. Computation of metrics using benchmarking workflows and the VRE"));
+        topics.add(new Topic("Level3", "level3", "OEB architecture level 3. Computation of the whole experiment in the platform: predictions, metrics, storage and visualization"));
+    }
+
+//    public static ArrayList<Links> projects = new ArrayList();
 //    static {
 //        projects.add(new Links("oeb", "OPENEBENCH"));
 //        projects.add(new Links("wg", "WIDGET GALLERY"));
@@ -86,5 +106,4 @@ public class Constants {
         widgetGalleryRepos.put("benchmarking_workflows_results_visualizer", "OEB VRE results visualizer");
         widgetGalleryRepos.put("bench_event_table", "OEB benchmark summay table");
     }
-
 }

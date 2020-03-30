@@ -10,7 +10,7 @@ package com.mycompany.documentation.model;
  * @author Vicky Sundesha <vicky.sundesha@bsc.es>
  */
 public class Links {
-    
+
     public String link;
     public String text;
 
@@ -18,7 +18,7 @@ public class Links {
         this.link = link;
         this.text = text;
     }
-    
+
     public String getLink() {
         return link;
     }
@@ -34,7 +34,4 @@ public class Links {
     public void setText(String text) {
         this.text = text;
     }
-    
-    
-    
 }
