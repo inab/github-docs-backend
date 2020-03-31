@@ -1,6 +1,6 @@
-package com.mycompany.documentation.api.logic;
+package com.mycompany.documentation.api.logic.v4;
 
-import static com.mycompany.documentation.api.logic.Constants.*;
+import static com.mycompany.documentation.api.logic.v4.Constants.*;
 import java.io.IOException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

@@ -1,4 +1,4 @@
-package com.mycompany.documentation.api.logic;
+package com.mycompany.documentation.api.logic.v4;
 
 import com.mycompany.documentation.model.*;
 import java.io.IOException;

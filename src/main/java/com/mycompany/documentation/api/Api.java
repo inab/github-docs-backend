@@ -5,7 +5,7 @@
  */
 package com.mycompany.documentation.api;
 
-import com.mycompany.documentation.api.logic.Constants;
+import com.mycompany.documentation.api.logic.v4.Constants;
 import com.mycompany.documentation.model.Link;
 import java.util.ArrayList;
 import javax.ws.rs.GET;

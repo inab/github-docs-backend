@@ -5,7 +5,7 @@
  */
 package com.mycompany.documentation.api.logic;
 
-import static com.mycompany.documentation.api.logic.Constants.*;
+import static com.mycompany.documentation.api.logic.v4.Constants.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

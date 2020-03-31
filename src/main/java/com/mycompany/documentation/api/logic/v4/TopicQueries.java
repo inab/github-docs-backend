@@ -1,8 +1,12 @@
-package com.mycompany.documentation.api.logic;
+package com.mycompany.documentation.api.logic.v4;
 
+import com.mycompany.documentation.api.logic.v4.JsonObj;
 import com.mycompany.documentation.model.*;
+import java.util.ArrayList;
 import java.util.Iterator;
 import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONString;
 
 /**
  *
@@ -96,22 +100,37 @@ public class TopicQueries {
 
         JSONObject json = new JSONObject(jsonString);
 
+        // Remove keys we dont need
         JSONObject repositories = json.getJSONObject("data").getJSONObject("repositoryOwner").getJSONObject("repositories");
-        JSONObject numRepos = repositories.getJSONObject("totalCount");
-        JSONObject repoName = repositories.getJSONObject("edges").getJSONObject("node").getJSONObject("name");
-        JSONObject topics = repositories.getJSONObject("edges").getJSONObject("node").getJSONObject("repositoryTopics").getJSONObject("edges").getJSONObject("node").getJSONObject("topic").getJSONObject("name");
-
-        Repo repo = new Repo();
-        repo.setName(repoName.toString());
-        repo.setTotalCount(Integer.parseInt(numRepos.toString()));
-                
-        /*Iterator<String> keys = repositories.keys();
-        while (keys.hasNext()) {
-            String key = keys.next();
-            if (repositories.get(key) instanceof JSONObject) {
-                System.out.println(key);      
+        
+        //number of repositories
+        Integer numRepos = repositories.getInt("totalCount");
+        
+        //getRepo names and topics
+        JSONArray repoArray = repositories.getJSONArray("edges");
+        
+        
+        ArrayList reposArrayList = new ArrayList<Repo>();          
+        for(int i = 0; i < repoArray.length(); i++){
+            //get the name
+            String reponame = repoArray.getJSONObject(i).getJSONObject("node").getString("name");
+            
+            //get topics 
+            ArrayList topicsArrayList = new ArrayList<Topic>();            
+            JSONArray repoTopicsArray = repoArray.getJSONObject(i).getJSONObject("node").getJSONObject("repositoryTopics").getJSONArray("edges");
+            for(int j = 0; j < repoTopicsArray.length(); j++){
+                   String topicName = repoTopicsArray.getJSONObject(j).getJSONObject("node").getJSONObject("topic").getString("name");
+                   topicsArrayList.add(new Topic(topicName,"urlofchoise","bla bla bla"));
+                   
             }
-        }*/
-        return repositories.toString();
+            //add name topic and number of repos to repo list
+            reposArrayList.add(new Repo(reponame,topicsArrayList,numRepos));
+        }
+        
+        //Parse java object back to json
+        JSONArray res = new JSONArray(reposArrayList);
+        
+
+        return res.toString();
     }
 }

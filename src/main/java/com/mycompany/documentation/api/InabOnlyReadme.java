@@ -6,7 +6,7 @@
 package com.mycompany.documentation.api;
 
 import com.mycompany.documentation.api.logic.HtmlREADMEfromURL;
-import static com.mycompany.documentation.api.logic.Constants.*;
+import static com.mycompany.documentation.api.logic.v4.Constants.*;
 import java.io.IOException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

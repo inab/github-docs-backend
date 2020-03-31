@@ -1,6 +1,6 @@
-package com.mycompany.documentation.api;
+package com.mycompany.documentation.api.v4;
 
-import com.mycompany.documentation.api.logic.TopicQueries;
+import com.mycompany.documentation.api.logic.v4.TopicQueries;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
