@@ -1,7 +1,6 @@
 package com.mycompany.documentation.api.logic;
 
-import static com.mycompany.documentation.api.logic.Constants.TOKEN;
-import static com.mycompany.documentation.api.logic.Constants.githubApiV4;
+import static com.mycompany.documentation.api.logic.Constants.*;
 import java.io.IOException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

@@ -6,7 +6,8 @@
 package com.mycompany.documentation.api;
 
 import com.mycompany.documentation.api.logic.Constants;
-import java.util.Map;
+import com.mycompany.documentation.model.Link;
+import java.util.ArrayList;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -29,18 +30,18 @@ public class Api {
     @GET
     @Path("/{repolist}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, String> repoListToHtml(@PathParam("repolist") String repolist) {
-        Map<String, String> list = Constants.oebRepos;
+    public ArrayList<Link> repoListToHtml(@PathParam("repolist") String repolist) {
+        ArrayList<Link> list = Constants.oebRepos;
         if (!repolist.isEmpty()) {
             switch (repolist) {
                 case "oeb":
                     list = Constants.oebRepos;
                     break;
                 case "wg":
-                    list = Constants.widgetGalleryRepos;
+                    list = Constants.wgRepos;
                     break;
                 case "vre":
-                    list = Constants.vre;
+                    list = Constants.vreRepos;
                     break;
                 default:
                     break;
@@ -52,11 +53,12 @@ public class Api {
     /**
      * Returns list of projects for the documentation hub.
      *
+     * @return
      */
     @GET
     @Path("/projects")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, String> getProjects() {
+    public ArrayList<Link> getProjects() {
         return Constants.projects;
     }
 }

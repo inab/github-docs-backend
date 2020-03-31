@@ -48,10 +48,10 @@ public class Topics {
      * It retrieves the repos from an owner which contain a determined topic
      * @param login
      * @param topic
-     * @return 
+     * @return calls the function to retrieve the repos
      */
     @GET
-    @Path("/{login}/{topic}")
+    @Path("/{login}/{topic}/topics")
     @Produces(MediaType.APPLICATION_JSON)
     public String getReposWithTopic(@PathParam("login") String login, @PathParam("topic") String topic) {
         TopicQueries tq = new TopicQueries();

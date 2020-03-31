@@ -1,11 +1,12 @@
 package com.mycompany.documentation.api.logic;
 
-import static com.mycompany.documentation.api.logic.Constants.*;
+import com.mycompany.documentation.model.*;
+import java.util.Iterator;
 import org.json.JSONObject;
 
 /**
  *
- * @author tarda
+ * @author lsimon
  */
 public class TopicQueries {
 
@@ -90,13 +91,27 @@ public class TopicQueries {
                 + "    }\n"
                 + "  }\n"
                 + "}");
-        
-        for (int i = 0; i < oebRepos.size(); i++) {
-            if (topic.equals(oebRepos.get(i).getTags())){
-                
-            }
-        }
 
-        return getJsonObj(jsonObj);
+        String jsonString = getJsonObj(jsonObj);
+
+        JSONObject json = new JSONObject(jsonString);
+
+        JSONObject repositories = json.getJSONObject("data").getJSONObject("repositoryOwner").getJSONObject("repositories");
+        JSONObject numRepos = repositories.getJSONObject("totalCount");
+        JSONObject repoName = repositories.getJSONObject("edges").getJSONObject("node").getJSONObject("name");
+        JSONObject topics = repositories.getJSONObject("edges").getJSONObject("node").getJSONObject("repositoryTopics").getJSONObject("edges").getJSONObject("node").getJSONObject("topic").getJSONObject("name");
+
+        Repo repo = new Repo();
+        repo.setName(repoName.toString());
+        repo.setTotalCount(Integer.parseInt(numRepos.toString()));
+                
+        /*Iterator<String> keys = repositories.keys();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            if (repositories.get(key) instanceof JSONObject) {
+                System.out.println(key);      
+            }
+        }*/
+        return repositories.toString();
     }
 }
