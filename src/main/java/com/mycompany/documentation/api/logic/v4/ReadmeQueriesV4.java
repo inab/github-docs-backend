@@ -1,6 +1,5 @@
 package com.mycompany.documentation.api.logic.v4;
 
-import com.mycompany.documentation.api.logic.v4.JsonObj;
 import org.json.JSONObject;
 
 /**

@@ -19,6 +19,10 @@ public class Topic {
         this.description = description;
     }
 
+    public Topic(String name) {
+        this.name = name;
+    }
+    
     public String getName() {
         return name;
     }

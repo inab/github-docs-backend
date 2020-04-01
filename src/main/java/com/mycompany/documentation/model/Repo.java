@@ -9,15 +9,13 @@ import java.util.ArrayList;
 public class Repo {
     private String name;
     private ArrayList<Topic> topics;
-    private int totalCount;
 
     public Repo() {
     }
 
-    public Repo(String name, ArrayList<Topic> topics, int totalCount) {
+    public Repo(String name, ArrayList<Topic> topics) {
         this.name = name;
         this.topics = topics;
-        this.totalCount = totalCount;
     }
 
     public String getName() {
@@ -36,11 +34,12 @@ public class Repo {
         this.topics = topics;
     }
 
-    public int getTotalCount() {
-        return totalCount;
-    }
-
-    public void setTotalCount(int totalCount) {
-        this.totalCount = totalCount;
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Repo{name=").append(name);
+        sb.append(", topics=").append(topics);
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -37,8 +37,25 @@ public class Constants {
     public static String login = "inab";
     public static String readmeEndpoint = "readme";
 
-    //Topics
-    public static Topic backend = new Topic("Backend", "backend", "Code that runs on our servers or we use internally");
+    //repo topics
+    public static ArrayList<Topic> topics = new ArrayList();
+
+    static {
+        topics.add(new Topic("Backend", "backend", "Code that runs on our servers or we use internally"));
+        topics.add(new Topic("Frontend", "frontend", "All kinds of web applications"));
+        topics.add(new Topic("Scientific", "scientific", "Everything that is related to the scientific benchmarking aspect of OEB"));
+        topics.add(new Topic("Technical", "technical", "Everything that is related to the technical monitoring aspect of OEB"));
+        topics.add(new Topic("VRE", "vre", "Code that is used anywhere in the VRE"));
+        topics.add(new Topic("API", "api", "All the REST endpoints Technical and Scientific used by any component of OEB"));
+        topics.add(new Topic("Workflow", "workflow", "The set of processes that define a benchmarking event in OEB"));
+        topics.add(new Topic("Visualizer", "visualizer", "Components or widgets created for OEB"));
+        topics.add(new Topic("Data model", "data_model", "Json schemas defined by OEB"));
+        topics.add(new Topic("Level1", "level1", "OEB architecture level 1. Storage and visualization of benchmarking results"));
+        topics.add(new Topic("Level2", "level2", "OEB architecture level 2. Computation of metrics using benchmarking workflows and the VRE"));
+        topics.add(new Topic("Level3", "level3", "OEB architecture level 3. Computation of the whole experiment in the platform: predictions, metrics, storage and visualization"));
+    }
+
+    /*public static Topic backend = new Topic("Backend", "backend", "Code that runs on our servers or we use internally");
     public static Topic frontend = new Topic("Frontend", "frontend", "All kinds of web applications");
     public static Topic scientific = new Topic("Scientific", "scientific", "Everything that is related to the scientific benchmarking aspect of OEB");
     public static Topic technical = new Topic("Technical", "technical", "Everything that is related to the technical monitoring aspect of OEB");
@@ -50,8 +67,6 @@ public class Constants {
     public static Topic level1 = new Topic("Level1", "level1", "OEB architecture level 1. Storage and visualization of benchmarking results");
     public static Topic level2 = new Topic("Level2", "level2", "OEB architecture level 2. Computation of metrics using benchmarking workflows and the VRE");
     public static Topic level3 = new Topic("Level3", "level3", "OEB architecture level 3. Computation of the whole experiment in the platform: predictions, metrics, storage and visualization");
-
-    public static ArrayList<Topic> topics = new ArrayList();
 
     static {
         topics.add(backend);
@@ -66,21 +81,10 @@ public class Constants {
         topics.add(level1);
         topics.add(level2);
         topics.add(level3);
-        
-        /*topics.add(new Topic("Backend", "backend", "Code that runs on our servers or we use internally"));
-        topics.add(new Topic("Frontend", "frontend", "All kinds of web applications"));
-        topics.add(new Topic("Scientific", "scientific", "Everything that is related to the scientific benchmarking aspect of OEB"));
-        topics.add(new Topic("Technical", "technical", "Everything that is related to the technical monitoring aspect of OEB"));
-        topics.add(new Topic("VRE", "vre", "Code that is used anywhere in the VRE"));
-        topics.add(new Topic("API", "api", "All the REST endpoints Technical and Scientific used by any component of OEB"));
-        topics.add(new Topic("Workflow", "workflow", "The set of processes that define a benchmarking event in OEB"));
-        topics.add(new Topic("Visualizer", "visualizer", "Components or widgets created for OEB"));
-        topics.add(new Topic("Data model", "data_model", "Json schemas defined by OEB"));
-        topics.add(new Topic("Level1", "level1", "OEB architecture level 1. Storage and visualization of benchmarking results"));
-        topics.add(new Topic("Level2", "level2", "OEB architecture level 2. Computation of metrics using benchmarking workflows and the VRE"));
-        topics.add(new Topic("Level3", "level3", "OEB architecture level 3. Computation of the whole experiment in the platform: predictions, metrics, storage and visualization"));*/
-    }
-
+    }*/
+    
+    
+    //projects
     public static ArrayList<Link> projects = new ArrayList();
 
     static {
@@ -89,8 +93,9 @@ public class Constants {
         projects.add(new Link("oeb", "OPENEBENCH"));
     }
 
+    //widget gallery repos
     public static ArrayList<Link> wgRepos = new ArrayList();
-    
+
     static {
         wgRepos.add(new Link("uptime-chart-OEB", "OEB uptime chart"));
         wgRepos.add(new Link("citations-widget-OEB", "OEB citation chart"));

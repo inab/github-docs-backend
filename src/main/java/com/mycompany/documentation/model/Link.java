@@ -15,15 +15,15 @@ public class Link {
     public Link() {
     }
 
-    public Link(String link, String name) {
-        this.url = link;
-        this.name = name;
-    }
-
     public Link(String link, String name, ArrayList<Topic> topics) {
         this.url = link;
         this.name = name;
         this.topics = topics;
+    }
+    
+    public Link(String link, String name) {
+        this.url = link;
+        this.name = name;
     }
 
     public ArrayList<Topic> getTopics() {
