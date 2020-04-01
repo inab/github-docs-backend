@@ -74,12 +74,12 @@ public class TopicQueries {
 
         jsonObj.put("query", "query { \n"
                 + "  repositoryOwner(login: \"" + login + "\"){\n"
-                + "    repositories(first:6){\n"
+                + "    repositories(first:10){\n"
                 + "      totalCount\n"
                 + "      edges{\n"
                 + "        node{\n"
                 + "          name\n"
-                + "          repositoryTopics(last:4){\n"
+                + "          repositoryTopics(first:100){\n"
                 + "            edges{\n"
                 + "              node{\n"
                 + "                topic{\n"
@@ -138,3 +138,30 @@ public class TopicQueries {
         return res.toString();
     }
 }
+
+        //Json query with pagination
+        /*jsonObj.put("query", "query{\n"
+                + "  repositoryOwner(login: \"" + login + "\") {\n"
+                + "    repositories(first: 10) {\n"
+                + "      totalCount\n"
+                + "      edges {\n"
+                + "        node {\n"
+                + "          name\n"
+                + "          repositoryTopics(first: 100) {\n"
+                + "            edges {\n"
+                + "              node {\n"
+                + "                topic {\n"
+                + "                  name\n"
+                + "                }\n"
+                + "              }\n"
+                + "            }\n"
+                + "          }\n"
+                + "        }\n"
+                + "      }\n"
+                + "      pageInfo {\n"
+                + "        endCursor\n"
+                + "        hasNextPage\n"
+                + "      }\n"
+                + "    }\n"
+                + "  }\n"
+                + "}");*/
