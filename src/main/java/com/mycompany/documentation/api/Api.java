@@ -53,7 +53,7 @@ public class Api {
     /**
      * Returns list of projects for the documentation hub.
      *
-     * @return
+     * @return 
      */
     @GET
     @Path("/projects")
