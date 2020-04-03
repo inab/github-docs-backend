@@ -10,22 +10,23 @@ import org.json.JSONArray;
  *
  * @author lsimon
  */
-public class TopicQueries {
+public class ALLTopicQueries {
 
-    public TopicQueries() {
+    public ALLTopicQueries() {
     }
+    
+    JSONObject jsonObj = new JSONObject();
+    JsonObj jsonObjClass = new JsonObj();
+    NumRepos numReposClass = new NumRepos();
+    int numRepos = numReposClass.getNumRepos();
+    NumTopics numTopicsClass = new NumTopics();
+    int numTopics = numTopicsClass.getNumTopics();
+    
 
-    public String getJsonObj(JSONObject jsonObj) {
-        JsonObj jsonObjClass = new JsonObj();
-        return jsonObjClass.getJsonObj(jsonObj);
-    }
-
-    public String getTopicsFromAllRepos(String login) {
-        JSONObject jsonObj = new JSONObject();
-
+    public String getTopicsFromAllRepos() {
         jsonObj.put("query", "query { \n"
                 + "  repositoryOwner(login: \"" + login + "\"){\n"
-                + "    repositories(first: 100){\n"
+                + "    repositories(first: " + numRepos + "){\n"
                 + "      totalCount\n"
                 + "      edges{\n"
                 + "        node{\n"
@@ -45,12 +46,10 @@ public class TopicQueries {
                 + "  }\n"
                 + "}");
 
-        return getJsonObj(jsonObj);
+        return jsonObjClass.getJsonObj(jsonObj);
     }
 
-    public String getTopicsFromARepo(String repoName, String owner) {
-        JSONObject jsonObj = new JSONObject();
-
+    public String getTopicsFromARepo(String repoName) {
         jsonObj.put("query", "query { \n"
                 + "  repository(name: \"" + repoName + "\", owner: \"" + owner + "\") {\n"
                 + "    name\n"
@@ -66,75 +65,10 @@ public class TopicQueries {
                 + "  }\n"
                 + "}");
 
-        return getJsonObj(jsonObj);
+        return jsonObjClass.getJsonObj(jsonObj);
     }
 
-    public int getNumRepos(String login) {
-        JSONObject jsonObj = new JSONObject();
-
-        jsonObj.put("query", "query {\n"
-                + "  repositoryOwner(login: \"" + login + "\") {\n"
-                + "    repositories(first: 10) {\n"
-                + "      totalCount\n"
-                + "    }\n"
-                + "  }\n"
-                + "}");
-
-        String jsonString = getJsonObj(jsonObj);
-
-        JSONObject json = new JSONObject(jsonString);
-
-        //remove keys we don't need
-        JSONObject repositories = json.getJSONObject("data").getJSONObject("repositoryOwner").getJSONObject("repositories");
-
-        //get number of repos
-        int numRepos = repositories.getInt("totalCount");
-
-        return numRepos;
-    }
-
-    public int getNumTopics(String login) {
-        int numRepos = getNumRepos(login);
-
-        JSONObject jsonObj = new JSONObject();
-
-        jsonObj.put("query", "query {\n"
-                + "  repositoryOwner(login: \"" + login + "\") {\n"
-                + "    repositories(first: " + numRepos + ") {\n"
-                + "      edges {\n"
-                + "        node {\n"
-                + "          repositoryTopics(first: 10) {\n"
-                + "            totalCount\n"
-                + "          }\n"
-                + "        }\n"
-                + "      }\n"
-                + "    }\n"
-                + "  }\n"
-                + "}");
-
-        String jsonString = getJsonObj(jsonObj);
-
-        JSONObject json = new JSONObject(jsonString);
-
-        //remove keys we don't need
-        JSONObject repositories = json.getJSONObject("data").getJSONObject("repositoryOwner").getJSONObject("repositories");
-
-        int numTopics = 0;
-        JSONArray reposArray = repositories.getJSONArray("edges");
-        for (int i = 0; i < numRepos; i++) {
-            //get number of topics 
-            numTopics = reposArray.getJSONObject(i).getJSONObject("node").getJSONObject("repositoryTopics").getInt("totalCount");
-        }
-
-        return numTopics;
-    }
-
-    public String getReposWithTopic(String login, String topic) {
-        int numRepos = getNumRepos(login);
-        int numTopics = getNumTopics(login);
-
-        JSONObject jsonObj = new JSONObject();
-
+    public String getReposWithTopic2(String topic) {
         jsonObj.put("query", "query { \n"
                 + "  repositoryOwner(login: \"" + login + "\"){\n"
                 + "    repositories(first: " + numRepos + "){\n"
@@ -157,7 +91,7 @@ public class TopicQueries {
                 + "  }\n"
                 + "}");
 
-        String jsonString = getJsonObj(jsonObj);
+        String jsonString = jsonObjClass.getJsonObj(jsonObj);
 
         JSONObject json = new JSONObject(jsonString);
 
@@ -205,7 +139,7 @@ public class TopicQueries {
 //Json query with pagination
 /*jsonObj.put("query", "query{\n"
                 + "  repositoryOwner(login: \"" + login + "\") {\n"
-                + "    repositories(first: 10) {\n"
+                + "    repositories(first: " + numRepos + ") {\n"
                 + "      totalCount\n"
                 + "      edges {\n"
                 + "        node {\n"
