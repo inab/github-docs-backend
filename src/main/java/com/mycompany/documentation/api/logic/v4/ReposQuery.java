@@ -15,19 +15,18 @@ public class ReposQuery {
 
     public ReposQuery() {
     }
-    
+
     JsonObj jsonObjClass = new JsonObj();
     NumRepos numReposClass = new NumRepos();
     int numRepos = numReposClass.getNumRepos();
     NumTopics numTopicsClass = new NumTopics();
     int numTopics = numTopicsClass.getNumTopics();
-    
+
     public String getReposWithTopic(String[] topic) {
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("query", "query { \n"
                 + "  repositoryOwner(login: \"" + login + "\"){\n"
                 + "    repositories(first: " + numRepos + "){\n"
-                + "      totalCount\n"
                 + "      edges{\n"
                 + "        node{\n"
                 + "          name\n"
@@ -77,9 +76,11 @@ public class ReposQuery {
                     topicsArrayList.add(new Topic(topicName));
                 }
 
-                if (topicName.equalsIgnoreCase(topic)) {
-                    //add repo name and topics to repo list
-                    reposArrayList.add(new Repo(repoName, topicsArrayList));
+                for (int k = 0; k < topic.length; k++) {
+                    if (topicName.equalsIgnoreCase(topic[k])) {
+                        //add repo name and topics to repo list
+                        reposArrayList.add(new Repo(repoName, topicsArrayList));
+                    }
                 }
             }
         }

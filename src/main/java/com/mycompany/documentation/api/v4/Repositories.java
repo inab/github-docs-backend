@@ -28,7 +28,9 @@ public class Repositories {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public String[] getquerylist(@DefaultValue("") @QueryParam("t") String[] t) {
-        return t;
+    public String getReposWIthTopic(@DefaultValue("") @QueryParam("t") String[] topic) {
+        ReposQuery reposQueryClass = new ReposQuery();
+
+        return reposQueryClass.getReposWithTopic(topic);
     }
 }
