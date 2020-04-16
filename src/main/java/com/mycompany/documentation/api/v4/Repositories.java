@@ -16,21 +16,12 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class Repositories {
     
-    /*@GET
-    @Path("/{topics}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getReposWIthTopic(@DefaultValue("") @QueryParam("topics") String[] topics) {
-        ReposQuery reposQueryClass = new ReposQuery();
-
-        return reposQueryClass.getReposWithTopic(topics);
-    }*/
-    
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getReposWIthTopic(@DefaultValue("") @QueryParam("t") String[] topic) {
+    public String getReposWIthTopic(@DefaultValue("") @QueryParam("t") String[] topics) {
         ReposQuery reposQueryClass = new ReposQuery();
 
-        return reposQueryClass.getReposWithTopic(topic);
+        return reposQueryClass.getReposWithTopic(topics);
     }
 }

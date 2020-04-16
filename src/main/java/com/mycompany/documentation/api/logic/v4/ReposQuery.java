@@ -4,6 +4,11 @@ import static com.mycompany.documentation.api.logic.v4.Constants.*;
 import com.mycompany.documentation.model.Repo;
 import com.mycompany.documentation.model.Topic;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,13 +21,13 @@ public class ReposQuery {
     public ReposQuery() {
     }
 
-    JsonObj jsonObjClass = new JsonObj();
     NumRepos numReposClass = new NumRepos();
-    int numRepos = numReposClass.getNumRepos();
     NumTopics numTopicsClass = new NumTopics();
-    int numTopics = numTopicsClass.getNumTopics();
+    JsonObj jsonObjClass = new JsonObj();
 
     public String getReposWithTopic(String[] topic) {
+        int numRepos = numReposClass.getNumRepos();
+        int numTopics = numTopicsClass.getNumTopics();
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("query", "query { \n"
                 + "  repositoryOwner(login: \"" + login + "\"){\n"
@@ -55,32 +60,49 @@ public class ReposQuery {
         //get repo names and topics
         String repoName, topicName, topicUrl, topicDescription;
         ArrayList reposArrayList = new ArrayList<Repo>();
+        ArrayList topicsArrayList = new ArrayList<Topic>();
         JSONArray reposArray = repositories.getJSONArray("edges");
+
         for (int i = 0; i < numRepos; i++) {
             //get name
             repoName = reposArray.getJSONObject(i).getJSONObject("node").getString("name");
 
-            //get topics 
-            ArrayList topicsArrayList = new ArrayList<Topic>();
+            //get topics
             JSONArray topicsArray = reposArray.getJSONObject(i).getJSONObject("node").getJSONObject("repositoryTopics").getJSONArray("edges");
+
             for (int j = 0; j < topicsArray.length(); j++) {
                 topicName = topicsArray.getJSONObject(j).getJSONObject("node").getJSONObject("topic").getString("name");
-                if (topics.get(j).getName().equalsIgnoreCase(topicName)) {
-                    topicUrl = topics.get(j).getUrl();
-                    topicDescription = topics.get(j).getDescription();
 
-                    //add topic name, url and description to topic list
-                    topicsArrayList.add(new Topic(topicName, topicUrl, topicDescription));
-                } else {
-                    //add only topic name to topic list
-                    topicsArrayList.add(new Topic(topicName));
-                }
+                //add topic name to topic list
+                topicsArrayList.add(new Topic(topicName));
 
                 for (int k = 0; k < topic.length; k++) {
                     if (topicName.equalsIgnoreCase(topic[k])) {
-                        //add repo name and topics to repo list
                         reposArrayList.add(new Repo(repoName, topicsArrayList));
                     }
+
+
+                        /*Repo repo;
+                        do {
+                            repo = new Repo(repoName, topicsArrayList);
+                            //add repo name and topics to repo list
+                            reposArrayList.add(repo);
+                        } while (!reposArrayList.contains(repo));*/
+                        //delete reps
+                        
+                        /*Set reposHashSet = new LinkedHashSet<Repo>();
+                        reposHashSet.addAll(reposArrayList);
+                        reposArrayList.clear();
+                        reposArrayList.addAll(reposHashSet);*/
+                        
+                        /*Collections.sort(reposArrayList);
+                        Iterator<Repo> it = reposArrayList.iterator();
+                        Repo repo = it.next();
+                        while (it.hasNext()) {
+                            if (reposArrayList.contains(repo.getName())) {
+                                reposArrayList.remove(repo);
+                            }
+                        }*/
                 }
             }
         }

@@ -12,8 +12,11 @@ public class NumRepos {
     public NumRepos() {
     }
 
+    JsonObj jsonObjClass = new JsonObj();
+
     /**
      * It retrieves the number of repos of an owner
+     *
      * @return int num of repos
      */
     public int getNumRepos() {
@@ -21,13 +24,12 @@ public class NumRepos {
 
         jsonObj.put("query", "query {\n"
                 + "  repositoryOwner(login: \"" + login + "\") {\n"
-                + "    repositories(first: 10) {\n"
+                + "    repositories(first: 100) {\n"
                 + "      totalCount\n"
                 + "    }\n"
                 + "  }\n"
                 + "}");
 
-        JsonObj jsonObjClass = new JsonObj();
         String jsonString = jsonObjClass.getJsonObj(jsonObj);
 
         JSONObject json = new JSONObject(jsonString);
@@ -37,6 +39,9 @@ public class NumRepos {
 
         //get number of repos
         int numRepos = repositories.getInt("totalCount");
+        if (numRepos > 100) {
+            numRepos = 100;
+        }
 
         return numRepos;
     }

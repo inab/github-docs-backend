@@ -13,14 +13,16 @@ public class NumTopics {
     public NumTopics() {
     }
 
+    NumRepos numReposClass = new NumRepos();
+    JsonObj jsonObjClass = new JsonObj();
+
     /**
      * It retrieves the number of topics of a repo
+     *
      * @return int num of topics
      */
     public int getNumTopics() {
-        NumRepos numReposClass = new NumRepos();
         int numRepos = numReposClass.getNumRepos();
-
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("query", "query {\n"
                 + "  repositoryOwner(login: \"" + login + "\") {\n"
@@ -36,7 +38,6 @@ public class NumTopics {
                 + "  }\n"
                 + "}");
 
-        JsonObj jsonObjClass = new JsonObj();
         String jsonString = jsonObjClass.getJsonObj(jsonObj);
 
         JSONObject json = new JSONObject(jsonString);
@@ -49,6 +50,10 @@ public class NumTopics {
         for (int i = 0; i < numRepos; i++) {
             //get number of topics 
             numTopics = reposArray.getJSONObject(i).getJSONObject("node").getJSONObject("repositoryTopics").getInt("totalCount");
+        }
+
+        if (numTopics > 10) {
+            numTopics = 10;
         }
 
         return numTopics;
