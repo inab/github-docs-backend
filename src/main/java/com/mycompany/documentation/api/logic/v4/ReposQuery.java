@@ -46,6 +46,12 @@ public class ReposQuery {
                 + "          }\n"
                 + "        }\n"
                 + "      }\n"
+                + "      pageInfo {\n"
+                + "        startCursor\n"
+                + "        endCursor\n"
+                + "        hasNextPage\n"
+                + "        hasPreviousPage\n"
+                + "      }\n"
                 + "    }\n"
                 + "  }\n"
                 + "}");
@@ -57,6 +63,11 @@ public class ReposQuery {
         //remove keys we don't need
         JSONObject repositories = json.getJSONObject("data").getJSONObject("repositoryOwner").getJSONObject("repositories");
 
+        //get pageInfo
+        String startCursor, endCursor;
+        Boolean hasNextPage, hasPreviousPage;
+        JSONArray pagesArray = repositories.getJSONArray("pageInfo");
+
         //get repo names and topics
         String repoName, topicName, topicUrl, topicDescription;
         ArrayList reposArrayList = new ArrayList<Repo>();
@@ -64,6 +75,13 @@ public class ReposQuery {
         JSONArray reposArray = repositories.getJSONArray("edges");
 
         for (int i = 0; i < numRepos; i++) {
+            
+            //get startCursor, endCursor, hasNextPage, hasPreviousPage
+            startCursor = pagesArray.getJSONObject(i).getString("startCursor");
+            endCursor = pagesArray.getJSONObject(i).getString("endCursor");
+            hasNextPage = pagesArray.getJSONObject(i).getBoolean("hasNextPage");
+            hasPreviousPage = pagesArray.getJSONObject(i).getBoolean("hasPreviousPage");
+
             //get name
             repoName = reposArray.getJSONObject(i).getJSONObject("node").getString("name");
 
@@ -81,21 +99,20 @@ public class ReposQuery {
                         reposArrayList.add(new Repo(repoName, topicsArrayList));
                     }
 
-
+                        //delete reps
                         /*Repo repo;
                         do {
                             repo = new Repo(repoName, topicsArrayList);
                             //add repo name and topics to repo list
                             reposArrayList.add(repo);
-                        } while (!reposArrayList.contains(repo));*/
-                        //delete reps
+                        } while (!reposArrayList.contains(repo));
                         
-                        /*Set reposHashSet = new LinkedHashSet<Repo>();
+                        Set reposHashSet = new LinkedHashSet<Repo>();
                         reposHashSet.addAll(reposArrayList);
                         reposArrayList.clear();
-                        reposArrayList.addAll(reposHashSet);*/
+                        reposArrayList.addAll(reposHashSet);
                         
-                        /*Collections.sort(reposArrayList);
+                        Collections.sort(reposArrayList);
                         Iterator<Repo> it = reposArrayList.iterator();
                         Repo repo = it.next();
                         while (it.hasNext()) {
