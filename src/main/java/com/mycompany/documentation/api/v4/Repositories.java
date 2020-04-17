@@ -22,6 +22,6 @@ public class Repositories {
     public String getReposWIthTopic(@DefaultValue("") @QueryParam("t") String[] topics) {
         ReposQuery reposQueryClass = new ReposQuery();
 
-        return reposQueryClass.getReposWithTopic(topics);
+        return reposQueryClass.getReposWithTopicWithoutDuplicates(topics);
     }
 }
