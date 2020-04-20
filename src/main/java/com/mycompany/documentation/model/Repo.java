@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class Repo {
     
     private String name;
-    private ArrayList<Topic> topics;
+    private ArrayList<String> topics;
 
     public Repo() {
     }
 
-    public Repo(String name, ArrayList<Topic> topics) {
+    public Repo(String name, ArrayList<String> topics) {
         this.name = name;
         this.topics = topics;
     }
@@ -27,11 +27,11 @@ public class Repo {
         this.name = name;
     }
 
-    public ArrayList<Topic> getTopics() {
+    public ArrayList<String> getTopics() {
         return topics;
     }
 
-    public void setTopics(ArrayList<Topic> topics) {
+    public void setTopics(ArrayList<String> topics) {
         this.topics = topics;
     }
 

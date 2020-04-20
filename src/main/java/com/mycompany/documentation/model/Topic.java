@@ -22,7 +22,7 @@ public class Topic {
     public Topic(String name) {
         this.name = name;
     }
-    
+
     public String getName() {
         return name;
     }
