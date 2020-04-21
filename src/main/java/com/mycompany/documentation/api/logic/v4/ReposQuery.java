@@ -120,7 +120,7 @@ public class ReposQuery {
         return res.toString();
     }
     
-    public String getReposWithoutTopic(String[] topic, Boolean reverse) {
+    public String getReposWithoutTopic(String[] topic) {
         int numRepos = numReposClass.getNumRepos();
         int numTopics = numTopicsClass.getNumTopics();
 
