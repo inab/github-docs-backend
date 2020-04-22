@@ -135,30 +135,3 @@ public class ALLTopicQueries {
         return res.toString();
     }
 }
-
-//Json query with pagination
-/*jsonObj.put("query", "query{\n"
-                + "  repositoryOwner(login: \"" + login + "\") {\n"
-                + "    repositories(first: " + numRepos + ") {\n"
-                + "      totalCount\n"
-                + "      edges {\n"
-                + "        node {\n"
-                + "          name\n"
-                + "          repositoryTopics(first: 100) {\n"
-                + "            edges {\n"
-                + "              node {\n"
-                + "                topic {\n"
-                + "                  name\n"
-                + "                }\n"
-                + "              }\n"
-                + "            }\n"
-                + "          }\n"
-                + "        }\n"
-                + "      }\n"
-                + "      pageInfo {\n"
-                + "        endCursor\n"
-                + "        hasNextPage\n"
-                + "      }\n"
-                + "    }\n"
-                + "  }\n"
-                + "}");*/

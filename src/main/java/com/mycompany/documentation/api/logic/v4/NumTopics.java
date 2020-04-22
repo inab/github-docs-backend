@@ -24,6 +24,7 @@ public class NumTopics {
     public int getNumTopics() {
         int numRepos = numReposClass.getNumRepos();
         JSONObject jsonObj = new JSONObject();
+        
         jsonObj.put("query", "query {\n"
                 + "  repositoryOwner(login: \"" + login + "\") {\n"
                 + "    repositories(first: " + numRepos + ") {\n"
@@ -39,7 +40,6 @@ public class NumTopics {
                 + "}");
 
         String jsonString = jsonObjClass.getJsonObj(jsonObj);
-
         JSONObject json = new JSONObject(jsonString);
 
         //remove keys we don't need
@@ -47,9 +47,12 @@ public class NumTopics {
 
         int numTopics = 0;
         JSONArray reposArray = repositories.getJSONArray("edges");
-        for (int i = 0; i < numRepos; i++) {
-            //get number of topics 
-            numTopics = reposArray.getJSONObject(i).getJSONObject("node").getJSONObject("repositoryTopics").getInt("totalCount");
+        
+        for (Object o : reposArray) {
+            JSONObject repoObj = new JSONObject(o.toString());
+
+            //get number of topics
+            numTopics = repoObj.getJSONObject("node").getJSONObject("repositoryTopics").getInt("totalCount");
         }
 
         if (numTopics > 10) {

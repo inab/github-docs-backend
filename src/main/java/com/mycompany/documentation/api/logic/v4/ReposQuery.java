@@ -32,7 +32,7 @@ public class ReposQuery {
                 + "      edges{\n"
                 + "        node{\n"
                 + "          name\n"
-                + "          repositoryTopics(first: 10){\n"
+                + "          repositoryTopics(first: " + numTopics + "){\n"
                 + "            edges{\n"
                 + "              node{\n"
                 + "                topic{\n"
@@ -68,11 +68,14 @@ public class ReposQuery {
         //remove keys we don't need
         JSONObject repositories = json.getJSONObject("data").getJSONObject("repositoryOwner").getJSONObject("repositories");
 
+        //get pageInfo
+        JSONObject pageInfo = repositories.getJSONObject("pageInfo");
+        
         //get startCursor, endCursor, hasNextPage, hasPreviousPage
-        startCursor = repositories.getJSONObject("pageInfo").getString("startCursor");
-        endCursor = repositories.getJSONObject("pageInfo").getString("endCursor");
-        hasNextPage = repositories.getJSONObject("pageInfo").getBoolean("hasNextPage");
-        hasPreviousPage = repositories.getJSONObject("pageInfo").getBoolean("hasPreviousPage");
+        startCursor = pageInfo.getString("startCursor");
+        endCursor = pageInfo.getString("endCursor");
+        hasNextPage = pageInfo.getBoolean("hasNextPage");
+        hasPreviousPage = pageInfo.getBoolean("hasPreviousPage");
 
         //get array of repos returned by github
         JSONArray reposArray = repositories.getJSONArray("edges");
@@ -110,7 +113,7 @@ public class ReposQuery {
                 }
 
                 //add name and array of topics to array of repos
-                reposArrayList.add(new Repo(repoName, topicsArrayList));
+                reposArrayList.add(new Repo(repoName, topicsArrayList, startCursor, endCursor, hasNextPage, hasPreviousPage));
             }
         }
 
@@ -132,7 +135,7 @@ public class ReposQuery {
                 + "      edges{\n"
                 + "        node{\n"
                 + "          name\n"
-                + "          repositoryTopics(first: 10){\n"
+                + "          repositoryTopics(first: " + numTopics + "){\n"
                 + "            edges{\n"
                 + "              node{\n"
                 + "                topic{\n"
@@ -168,11 +171,14 @@ public class ReposQuery {
         //remove keys we don't need
         JSONObject repositories = json.getJSONObject("data").getJSONObject("repositoryOwner").getJSONObject("repositories");
 
+        //get pageInfo
+        JSONObject pageInfo = repositories.getJSONObject("pageInfo");
+        
         //get startCursor, endCursor, hasNextPage, hasPreviousPage
-        startCursor = repositories.getJSONObject("pageInfo").getString("startCursor");
-        endCursor = repositories.getJSONObject("pageInfo").getString("endCursor");
-        hasNextPage = repositories.getJSONObject("pageInfo").getBoolean("hasNextPage");
-        hasPreviousPage = repositories.getJSONObject("pageInfo").getBoolean("hasPreviousPage");
+        startCursor = pageInfo.getString("startCursor");
+        endCursor = pageInfo.getString("endCursor");
+        hasNextPage = pageInfo.getBoolean("hasNextPage");
+        hasPreviousPage = pageInfo.getBoolean("hasPreviousPage");
 
         //get array of repos returned by github
         JSONArray reposArray = repositories.getJSONArray("edges");
@@ -210,7 +216,7 @@ public class ReposQuery {
                 }
 
                 //add name and array of topics to array of repos
-                reposArrayList.add(new Repo(repoName, topicsArrayList));
+                reposArrayList.add(new Repo(repoName, topicsArrayList, startCursor, endCursor, hasNextPage, hasPreviousPage));
             }
         }
 

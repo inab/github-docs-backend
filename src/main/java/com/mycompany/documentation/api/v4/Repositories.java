@@ -20,22 +20,23 @@ public class Repositories {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public String getReposWIthTopic(@DefaultValue("") @QueryParam("t") String[] topics,
-            //@DefaultValue("") @QueryParam("cursor") String cursor,
-            //@DefaultValue("") @QueryParam("first") String first,
+            //@DefaultValue("") @QueryParam("c") String c,
+            //@DefaultValue("") @QueryParam("f") String f,
             @DefaultValue("") @QueryParam("r") String r) {
+
+        ReposQuery reposQueryClass = new ReposQuery();
         
-        String res = "";
-        
+        String res;
+
         if (r.isEmpty()) {
-            System.out.println("normal");
-            //res = new ReposQuery().getReposWithTopic(topics);
+            //System.out.println("normal");
+            res = reposQueryClass.getReposWithTopic(topics);
         } else {
-            System.out.println("reverse");
-            //res = new ReposQuery().getReposWithoutTopic(topics);
-            
+            //System.out.println("reverse");
+            res = reposQueryClass.getReposWithoutTopic(topics);
         }
-        
-        System.out.println(r);
+
+        //System.out.println(r);
         return res;
     }
 }

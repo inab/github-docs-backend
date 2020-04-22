@@ -31,14 +31,11 @@ public class NumRepos {
                 + "}");
 
         String jsonString = jsonObjClass.getJsonObj(jsonObj);
-
         JSONObject json = new JSONObject(jsonString);
 
-        //remove keys we don't need
-        JSONObject repositories = json.getJSONObject("data").getJSONObject("repositoryOwner").getJSONObject("repositories");
-
         //get number of repos
-        int numRepos = repositories.getInt("totalCount");
+        int numRepos = json.getJSONObject("data").getJSONObject("repositoryOwner").getJSONObject("repositories").getInt("totalCount");
+
         if (numRepos > 100) {
             numRepos = 100;
         }
