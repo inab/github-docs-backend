@@ -22,28 +22,20 @@ public class Repositories {
     public String getReposWIthTopic(@DefaultValue("") @QueryParam("t") String[] topics,
             //@DefaultValue("") @QueryParam("cursor") String cursor,
             //@DefaultValue("") @QueryParam("first") String first,
-            @DefaultValue("") @QueryParam("reverse") String reverse) {
-        ReposQuery reposQueryClass = new ReposQuery();
+            @DefaultValue("") @QueryParam("r") String r) {
         
-        /*if (cursor == "") {
-            System.out.println("vuelta 1");
+        String res = "";
+        
+        if (r.isEmpty()) {
+            System.out.println("normal");
+            //res = new ReposQuery().getReposWithTopic(topics);
         } else {
-            System.out.println(cursor);
-        }*/
-        
-        Boolean r = false;
-        if (reverse != "") {
-            r = true;
+            System.out.println("reverse");
+            //res = new ReposQuery().getReposWithoutTopic(topics);
             
-        } 
-        if (reverse == "") {
-            r = false;
         }
         
-        if (!r) {
-            return reposQueryClass.getReposWithTopic(topics);
-        } else {
-            return reposQueryClass.getReposWithoutTopic(topics);
-        }
+        System.out.println(r);
+        return res;
     }
 }
