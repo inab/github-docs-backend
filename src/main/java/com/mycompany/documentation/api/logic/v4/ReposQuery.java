@@ -41,6 +41,16 @@ public class ReposQuery {
                 + "              }\n"
                 + "            }\n"
                 + "          }\n"
+                + "          description\n"
+                + "          url\n"
+                + "          owner {\n"
+                + "            login\n"
+                + "          }\n"
+                + "          object(expression: \"master:README.md\") {\n"
+                + "            ... on Blob {\n"
+                + "              text\n"
+                + "            }\n"
+                + "          }\n"
                 + "        }\n"
                 + "      }\n"
                 + "      pageInfo {\n"
@@ -57,7 +67,7 @@ public class ReposQuery {
         JSONObject json = new JSONObject(jsonString);
 
         //vars repos and topics
-        String repoName, topicName;
+        String repoName, repoDescription, repoUrl, repoOwner, repoReadme, topicName;
         ArrayList<Repo> reposArrayList = new ArrayList<>();
         ArrayList<String> topicsArrayList;
 
@@ -70,7 +80,7 @@ public class ReposQuery {
 
         //get pageInfo
         JSONObject pageInfo = repositories.getJSONObject("pageInfo");
-        
+
         //get startCursor, endCursor, hasNextPage, hasPreviousPage
         startCursor = pageInfo.getString("startCursor");
         endCursor = pageInfo.getString("endCursor");
@@ -106,6 +116,18 @@ public class ReposQuery {
                 //get repo name
                 repoName = repoObj.getJSONObject("node").getString("name");
 
+                //get repo description
+                //repoDescription = repoObj.getJSONObject("node").getString("description");
+                
+                //get repo url
+                repoUrl = repoObj.getJSONObject("node").getString("url");
+
+                //get repo owner
+                repoOwner = repoObj.getJSONObject("node").getJSONObject("owner").getString("login");
+
+                //get repo readme
+                repoReadme = repoObj.getJSONObject("node").getJSONObject("object").getString("text");
+
                 //add topics to array of topics
                 topicsArrayList = new ArrayList<>();
                 for (String top : tmp) {
@@ -113,7 +135,7 @@ public class ReposQuery {
                 }
 
                 //add name and array of topics to array of repos
-                reposArrayList.add(new Repo(repoName, topicsArrayList, startCursor, endCursor, hasNextPage, hasPreviousPage));
+                reposArrayList.add(new Repo(repoName, topicsArrayList, repoUrl, repoOwner, repoReadme, startCursor, endCursor, hasNextPage, hasPreviousPage));
             }
         }
 
@@ -122,8 +144,8 @@ public class ReposQuery {
 
         return res.toString();
     }
-    
-    public String getReposWithoutTopic(String[] topic) {
+
+    /*public String getReposWithoutTopic(String[] topic) {
         int numRepos = numReposClass.getNumRepos();
         int numTopics = numTopicsClass.getNumTopics();
 
@@ -224,5 +246,5 @@ public class ReposQuery {
         JSONArray res = new JSONArray(reposArrayList);
 
         return res.toString();
-    }
+    }*/
 }

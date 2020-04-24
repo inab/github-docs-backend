@@ -124,7 +124,7 @@ public class ALLTopicQueries {
 
                 if (topicName.equalsIgnoreCase(topic)) {
                     //add repo name and topics to repo list
-                    reposArrayList.add(new Repo(repoName, topicsArrayList));
+                    //reposArrayList.add(new Repo(repoName, topicsArrayList));
                 }
             }
         }

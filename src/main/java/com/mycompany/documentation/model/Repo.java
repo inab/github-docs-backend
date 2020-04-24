@@ -10,6 +10,11 @@ public class Repo {
     
     private String name;
     private ArrayList<String> topics;
+    private String description;
+    private String url;
+    private String owner;
+    private String[] contributors;
+    private String readme;
     private String startCursor;
     private String endCursor;
     private boolean hasNextPage;
@@ -18,20 +23,55 @@ public class Repo {
     public Repo() {
     }
 
-    public Repo(String name, ArrayList<String> topics, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
+    public Repo(String name, ArrayList<String> topics, String description, String url, String owner, String[] contributors, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
         this.name = name;
         this.topics = topics;
+        this.description = description;
+        this.url = url;
+        this.owner = owner;
+        this.contributors = contributors;
+        this.readme = readme;
         this.startCursor = startCursor;
         this.endCursor = endCursor;
         this.hasNextPage = hasNextPage;
         this.hasPreviousPage = hasPreviousPage;
     }
 
-    public Repo(String name, ArrayList<String> topics) {
+    public Repo(String name, ArrayList<String> topics, String description, String url, String owner, String[] contributors, String readme) {
         this.name = name;
         this.topics = topics;
+        this.description = description;
+        this.url = url;
+        this.owner = owner;
+        this.contributors = contributors;
+        this.readme = readme;
+    }
+
+    public Repo(String name, ArrayList<String> topics, String url, String owner, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
+        this.name = name;
+        this.topics = topics;
+        this.url = url;
+        this.owner = owner;
+        this.readme = readme;
+        this.startCursor = startCursor;
+        this.endCursor = endCursor;
+        this.hasNextPage = hasNextPage;
+        this.hasPreviousPage = hasPreviousPage;
     }
     
+    public Repo(String name, ArrayList<String> topics, String description, String url, String owner, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
+        this.name = name;
+        this.topics = topics;
+        this.description = description;
+        this.url = url;
+        this.owner = owner;
+        this.readme = readme;
+        this.startCursor = startCursor;
+        this.endCursor = endCursor;
+        this.hasNextPage = hasNextPage;
+        this.hasPreviousPage = hasPreviousPage;
+    }
+
     public String getName() {
         return name;
     }
@@ -46,6 +86,46 @@ public class Repo {
 
     public void setTopics(ArrayList<String> topics) {
         this.topics = topics;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String[] getContributors() {
+        return contributors;
+    }
+
+    public void setContributors(String[] contributors) {
+        this.contributors = contributors;
+    }
+
+    public String getReadme() {
+        return readme;
+    }
+
+    public void setReadme(String readme) {
+        this.readme = readme;
     }
 
     public String getStartCursor() {

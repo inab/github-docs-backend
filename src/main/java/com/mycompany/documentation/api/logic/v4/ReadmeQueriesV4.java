@@ -10,7 +10,7 @@ public class ReadmeQueriesV4 {
 
     public ReadmeQueriesV4() {
     }
-    
+
     public String getJsonObj(JSONObject jsonObj) {
         JsonObj jsonObjClass = new JsonObj();
         return jsonObjClass.getJsonObj(jsonObj);
@@ -37,7 +37,7 @@ public class ReadmeQueriesV4 {
     public String getReadmesFromAllRepos(String login) {
         JSONObject jsonObj = new JSONObject();
 
-        jsonObj.put("query", "query { \n"
+        /*jsonObj.put("query", "query { \n"
                 + "  repositoryOwner(login:\"" + login + "\"){\n"
                 + "    repositories(first:5){\n"
                 + "      totalCount\n"
@@ -50,6 +50,18 @@ public class ReadmeQueriesV4 {
                 + "              text\n"
                 + "            }\n"
                 + "    	     }\n"
+                + "        }\n"
+                + "      }\n"
+                + "    }\n"
+                + "  }\n"
+                + "}");*/
+        jsonObj.put("query", "query {\n"
+                + "  repositoryOwner(login: \"inab\") {\n"
+                + "    repositories(first: 100) {\n"
+                + "      edges {\n"
+                + "        node {\n"
+                + "          name\n"
+                + "          description\n"
                 + "        }\n"
                 + "      }\n"
                 + "    }\n"
