@@ -117,8 +117,12 @@ public class ReposQuery {
                 repoName = repoObj.getJSONObject("node").getString("name");
 
                 //get repo description
-                //repoDescription = repoObj.getJSONObject("node").getString("description");
-                
+                /*if (repoObj.getJSONObject("node").get("description") != null) {
+                    repoDescription = repoObj.getJSONObject("node").getString("description");
+                } else {
+                    repoDescription = "";
+                }*/
+                                
                 //get repo url
                 repoUrl = repoObj.getJSONObject("node").getString("url");
 
@@ -135,7 +139,7 @@ public class ReposQuery {
                 }
 
                 //add name and array of topics to array of repos
-                reposArrayList.add(new Repo(repoName, topicsArrayList, repoUrl, repoOwner, repoReadme, startCursor, endCursor, hasNextPage, hasPreviousPage));
+                reposArrayList.add(new Repo(repoName, topicsArrayList, /*repoDescription, */repoUrl, repoOwner, repoReadme, startCursor, endCursor, hasNextPage, hasPreviousPage));
             }
         }
 
