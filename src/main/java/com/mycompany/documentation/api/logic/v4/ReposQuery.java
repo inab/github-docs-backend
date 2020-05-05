@@ -1,7 +1,7 @@
 package com.mycompany.documentation.api.logic.v4;
 
 import static com.mycompany.documentation.api.logic.v4.Constants.*;
-import com.mycompany.documentation.model.Repo;
+import com.mycompany.documentation.model.Repository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.json.JSONArray;
@@ -68,7 +68,7 @@ public class ReposQuery {
 
         //vars repos and topics
         String repoName, repoDescription, repoUrl, repoOwner, repoReadme, topicName;
-        ArrayList<Repo> reposArrayList = new ArrayList<>();
+        ArrayList<Repository> reposArrayList = new ArrayList<>();
         ArrayList<String> topicsArrayList;
 
         //vars pagination
@@ -122,7 +122,6 @@ public class ReposQuery {
                 } else {
                     repoDescription = "";
                 }*/
-                                
                 //get repo url
                 repoUrl = repoObj.getJSONObject("node").getString("url");
 
@@ -139,7 +138,7 @@ public class ReposQuery {
                 }
 
                 //add name and array of topics to array of repos
-                reposArrayList.add(new Repo(repoName, topicsArrayList, /*repoDescription, */repoUrl, repoOwner, repoReadme, startCursor, endCursor, hasNextPage, hasPreviousPage));
+                reposArrayList.add(new Repository(repoName, topicsArrayList, /*repoDescription, */ repoUrl, repoOwner, repoReadme, startCursor, endCursor, hasNextPage, hasPreviousPage));
             }
         }
 
@@ -242,7 +241,7 @@ public class ReposQuery {
                 }
 
                 //add name and array of topics to array of repos
-                reposArrayList.add(new Repo(repoName, topicsArrayList, startCursor, endCursor, hasNextPage, hasPreviousPage));
+                reposArrayList.add(new Repository(repoName, topicsArrayList, startCursor, endCursor, hasNextPage, hasPreviousPage));
             }
         }
 

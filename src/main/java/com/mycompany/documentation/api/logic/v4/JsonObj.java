@@ -20,11 +20,12 @@ public class JsonObj {
 
     public JsonObj() {
     }
-    
+
     /**
      * It retrieves the json object from the query
+     *
      * @param jsonObj
-     * @return 
+     * @return
      */
     public String getJsonObj(JSONObject jsonObj) {
         String res = "";

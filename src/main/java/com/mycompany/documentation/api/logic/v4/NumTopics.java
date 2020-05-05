@@ -24,7 +24,7 @@ public class NumTopics {
     public int getNumTopics() {
         int numRepos = numReposClass.getNumRepos();
         JSONObject jsonObj = new JSONObject();
-        
+
         jsonObj.put("query", "query {\n"
                 + "  repositoryOwner(login: \"" + login + "\") {\n"
                 + "    repositories(first: " + numRepos + ") {\n"
@@ -47,7 +47,7 @@ public class NumTopics {
 
         int numTopics = 0;
         JSONArray reposArray = repositories.getJSONArray("edges");
-        
+
         for (Object o : reposArray) {
             JSONObject repoObj = new JSONObject(o.toString());
 

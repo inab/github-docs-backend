@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/topics")
 @Produces(MediaType.APPLICATION_JSON)
 public class Topics {
-    
+
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)

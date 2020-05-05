@@ -6,8 +6,8 @@ import java.util.ArrayList;
  *
  * @author lsimon
  */
-public class Repo {
-    
+public class Repository {
+
     private String name;
     private ArrayList<String> topics;
     private String description;
@@ -20,10 +20,10 @@ public class Repo {
     private boolean hasNextPage;
     private boolean hasPreviousPage;
 
-    public Repo() {
+    public Repository() {
     }
 
-    public Repo(String name, ArrayList<String> topics, String description, String url, String owner, String[] contributors, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
+    public Repository(String name, ArrayList<String> topics, String description, String url, String owner, String[] contributors, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
         this.name = name;
         this.topics = topics;
         this.description = description;
@@ -37,7 +37,7 @@ public class Repo {
         this.hasPreviousPage = hasPreviousPage;
     }
 
-    public Repo(String name, ArrayList<String> topics, String description, String url, String owner, String[] contributors, String readme) {
+    public Repository(String name, ArrayList<String> topics, String description, String url, String owner, String[] contributors, String readme) {
         this.name = name;
         this.topics = topics;
         this.description = description;
@@ -47,7 +47,7 @@ public class Repo {
         this.readme = readme;
     }
 
-    public Repo(String name, ArrayList<String> topics, String url, String owner, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
+    public Repository(String name, ArrayList<String> topics, String url, String owner, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
         this.name = name;
         this.topics = topics;
         this.url = url;
@@ -58,8 +58,8 @@ public class Repo {
         this.hasNextPage = hasNextPage;
         this.hasPreviousPage = hasPreviousPage;
     }
-    
-    public Repo(String name, ArrayList<String> topics, String description, String url, String owner, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
+
+    public Repository(String name, ArrayList<String> topics, String description, String url, String owner, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
         this.name = name;
         this.topics = topics;
         this.description = description;

@@ -5,7 +5,7 @@ package com.mycompany.documentation.model;
  * @author lsimon
  */
 public class Topic {
-    
+
     private String name;
     private String url;
     private String description;

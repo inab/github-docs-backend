@@ -25,7 +25,7 @@ public class Repositories {
             @DefaultValue("") @QueryParam("r") String r) {
 
         ReposQuery reposQueryClass = new ReposQuery();
-        
+
         String res;
 
         if (r.isEmpty()) {
