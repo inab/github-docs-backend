@@ -31,6 +31,7 @@ public class Constants {
 
     public static String githubApiV4 = "https://api.github.com/graphql";
     public static String login = "inab";
+    public static String owner = "inab";
 
     //repo topics
     public static ArrayList<Topic> topics = new ArrayList();
