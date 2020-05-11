@@ -5,6 +5,7 @@ package com.mycompany.documentation.model;
  * @author lsimon
  */
 public class Contributor {
+
     private String login;
     private String url;
 
@@ -31,5 +32,4 @@ public class Contributor {
     public void setUrl(String url) {
         this.url = url;
     }
-    
 }
