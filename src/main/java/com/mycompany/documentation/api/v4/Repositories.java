@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author lsimon
  */
-@Path("/repositories")
+@Path("/repositorieswithtopics")
 @Produces(MediaType.APPLICATION_JSON)
 public class Repositories {
 

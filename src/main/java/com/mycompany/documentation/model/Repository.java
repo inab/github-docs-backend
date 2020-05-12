@@ -13,7 +13,6 @@ public class Repository {
     private String description;
     private String url;
     private String owner;
-    private String[] contributors;
     private String readme;
     private String startCursor;
     private String endCursor;
@@ -21,42 +20,6 @@ public class Repository {
     private boolean hasPreviousPage;
 
     public Repository() {
-    }
-
-    public Repository(String name, ArrayList<String> topics, String description, String url, String owner, String[] contributors, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
-        this.name = name;
-        this.topics = topics;
-        this.description = description;
-        this.url = url;
-        this.owner = owner;
-        this.contributors = contributors;
-        this.readme = readme;
-        this.startCursor = startCursor;
-        this.endCursor = endCursor;
-        this.hasNextPage = hasNextPage;
-        this.hasPreviousPage = hasPreviousPage;
-    }
-
-    public Repository(String name, ArrayList<String> topics, String description, String url, String owner, String[] contributors, String readme) {
-        this.name = name;
-        this.topics = topics;
-        this.description = description;
-        this.url = url;
-        this.owner = owner;
-        this.contributors = contributors;
-        this.readme = readme;
-    }
-
-    public Repository(String name, ArrayList<String> topics, String url, String owner, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
-        this.name = name;
-        this.topics = topics;
-        this.url = url;
-        this.owner = owner;
-        this.readme = readme;
-        this.startCursor = startCursor;
-        this.endCursor = endCursor;
-        this.hasNextPage = hasNextPage;
-        this.hasPreviousPage = hasPreviousPage;
     }
 
     public Repository(String name, ArrayList<String> topics, String description, String url, String owner, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
@@ -70,6 +33,22 @@ public class Repository {
         this.endCursor = endCursor;
         this.hasNextPage = hasNextPage;
         this.hasPreviousPage = hasPreviousPage;
+    }
+
+    public Repository(String name, ArrayList<String> topics, String description, String url, String owner, String readme) {
+        this.name = name;
+        this.topics = topics;
+        this.description = description;
+        this.url = url;
+        this.owner = owner;
+        this.readme = readme;
+    }
+
+    public Repository(String name, ArrayList<String> topics, String description, String url) {
+        this.name = name;
+        this.topics = topics;
+        this.description = description;
+        this.url = url;
     }
 
     public String getName() {
@@ -110,14 +89,6 @@ public class Repository {
 
     public void setOwner(String owner) {
         this.owner = owner;
-    }
-
-    public String[] getContributors() {
-        return contributors;
-    }
-
-    public void setContributors(String[] contributors) {
-        this.contributors = contributors;
     }
 
     public String getReadme() {

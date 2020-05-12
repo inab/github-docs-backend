@@ -17,11 +17,9 @@ import javax.ws.rs.core.MediaType;
 public class Contributors {
 
     @GET
-    @Path("/{owner}/{repo}")
+    @Path("/{repo}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getReposWIthTopic(
-            @PathParam("owner") String owner,
-            @PathParam("repo") String repo) throws IOException {
+    public String getContributors(@PathParam("repo") String repo) throws IOException {
 
         ContributorsQuery contributorsQueryClass = new ContributorsQuery();
 

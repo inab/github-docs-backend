@@ -1,14 +1,7 @@
 package com.mycompany.documentation.api.logic.v4;
 
 import static com.mycompany.documentation.api.logic.v4.Constants.*;
-import com.mycompany.documentation.model.Contributor;
 import com.mycompany.documentation.model.Repository;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.json.JSONArray;
@@ -27,7 +20,7 @@ public class ReposQuery {
     NumTopics numTopicsClass = new NumTopics();
     JsonObj jsonObjClass = new JsonObj();
 
-    public String getReposWithTopic(String[] topic) {
+    public String getReposWithTopic(String[] topics) {
         int numRepos = numReposClass.getNumRepos();
         int numTopics = numTopicsClass.getNumTopics();
 
@@ -119,7 +112,7 @@ public class ReposQuery {
             }
 
             //compare the two lists to check if all the topics defined by user are present in topic list from repo
-            if (tmp.containsAll(Arrays.asList(topic))) {
+            if (tmp.containsAll(Arrays.asList(topics))) {
                 //get repo name
                 repoName = repoObj.getJSONObject("node").getString("name");
 
@@ -146,7 +139,7 @@ public class ReposQuery {
                 }
 
                 //add all repo attributes to array of repos
-                reposArrayList.add(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, repoOwner, repoReadme, startCursor, endCursor, hasNextPage, hasPreviousPage));
+                reposArrayList.add(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, repoOwner, repoReadme/*, startCursor, endCursor, hasNextPage, hasPreviousPage*/));
             }
         }
 
@@ -156,7 +149,7 @@ public class ReposQuery {
         return res.toString();
     }
 
-    /*public String getReposWithoutTopic(String[] topic) {
+    /*public String getReposWithoutTopic(String[] topics) {
         int numRepos = numReposClass.getNumRepos();
         int numTopics = numTopicsClass.getNumTopics();
 
@@ -177,6 +170,16 @@ public class ReposQuery {
                 + "              }\n"
                 + "            }\n"
                 + "          }\n"
+                + "          description\n"
+                + "          url\n"
+                + "          owner {\n"
+                + "            login\n"
+                + "          }\n"
+                + "          object(expression: \"master:README.md\") {\n"
+                + "            ... on Blob {\n"
+                + "              text\n"
+                + "            }\n"
+                + "          }\n"
                 + "        }\n"
                 + "      }\n"
                 + "      pageInfo {\n"
@@ -193,8 +196,8 @@ public class ReposQuery {
         JSONObject json = new JSONObject(jsonString);
 
         //vars repos and topics
-        String repoName, topicName;
-        ArrayList<Repo> reposArrayList = new ArrayList<>();
+        String repoName, repoDescription, repoUrl, repoOwner, repoReadme, topicName;
+        ArrayList<Repository> reposArrayList = new ArrayList<>();
         ArrayList<String> topicsArrayList;
 
         //vars pagination
@@ -206,7 +209,7 @@ public class ReposQuery {
 
         //get pageInfo
         JSONObject pageInfo = repositories.getJSONObject("pageInfo");
-        
+
         //get startCursor, endCursor, hasNextPage, hasPreviousPage
         startCursor = pageInfo.getString("startCursor");
         endCursor = pageInfo.getString("endCursor");
@@ -238,9 +241,25 @@ public class ReposQuery {
             }
 
             //compare the two lists to check if all the topics defined by user are present in topic list from repo
-            if (!tmp.containsAll(Arrays.asList(topic))) {
+            if (!tmp.containsAll(Arrays.asList(topics))) {
                 //get repo name
                 repoName = repoObj.getJSONObject("node").getString("name");
+
+                //get repo description
+                if (repoObj.getJSONObject("node").isNull("description")) {
+                    repoDescription = "";
+                } else {
+                    repoDescription = repoObj.getJSONObject("node").getString("description");
+                }
+
+                //get repo url
+                repoUrl = repoObj.getJSONObject("node").getString("url");
+
+                //get repo owner
+                repoOwner = repoObj.getJSONObject("node").getJSONObject("owner").getString("login");
+
+                //get repo readme
+                repoReadme = repoObj.getJSONObject("node").getJSONObject("object").getString("text");
 
                 //add topics to array of topics
                 topicsArrayList = new ArrayList<>();
@@ -248,8 +267,8 @@ public class ReposQuery {
                     topicsArrayList.add(top);
                 }
 
-                //add name and array of topics to array of repos
-                reposArrayList.add(new Repository(repoName, topicsArrayList, startCursor, endCursor, hasNextPage, hasPreviousPage));
+                //add all repo attributes to array of repos
+                reposArrayList.add(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, repoOwner, repoReadme, startCursor, endCursor, hasNextPage, hasPreviousPage));
             }
         }
 
