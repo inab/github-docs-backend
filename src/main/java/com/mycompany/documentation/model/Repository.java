@@ -35,20 +35,27 @@ public class Repository {
         this.hasPreviousPage = hasPreviousPage;
     }
 
-    public Repository(String name, ArrayList<String> topics, String description, String url, String owner, String readme) {
+    public Repository(String name, ArrayList<String> topics, String description, String url, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
         this.name = name;
         this.topics = topics;
         this.description = description;
         this.url = url;
-        this.owner = owner;
-        this.readme = readme;
+        this.startCursor = startCursor;
+        this.endCursor = endCursor;
+        this.hasNextPage = hasNextPage;
+        this.hasPreviousPage = hasPreviousPage;
     }
 
-    public Repository(String name, ArrayList<String> topics, String description, String url) {
+    public Repository(String name, ArrayList<String> topics, String description, String url, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
         this.name = name;
         this.topics = topics;
         this.description = description;
         this.url = url;
+        this.readme = readme;
+        this.startCursor = startCursor;
+        this.endCursor = endCursor;
+        this.hasNextPage = hasNextPage;
+        this.hasPreviousPage = hasPreviousPage;
     }
 
     public String getName() {

@@ -1,6 +1,6 @@
 package com.mycompany.documentation.api.v4;
 
-import com.mycompany.documentation.api.logic.v4.InabRepoQuery;
+import com.mycompany.documentation.api.logic.v4.RepoQuery;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -13,14 +13,14 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/repository")
 @Produces(MediaType.APPLICATION_JSON)
-public class InabRepo {
+public class Repository {
     
     @GET
     @Path("/{repoName}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getInabRepo(@PathParam("repoName") String repoName) {
-        InabRepoQuery inabRepoQueryClass = new InabRepoQuery();
+        RepoQuery repoQueryClass = new RepoQuery();
 
-        return inabRepoQueryClass.getInabRepo(repoName);
+        return repoQueryClass.getInabRepo(repoName);
     }
 }

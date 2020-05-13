@@ -3,7 +3,6 @@ package com.mycompany.documentation.api.logic.v4;
 import static com.mycompany.documentation.api.logic.v4.Constants.*;
 import com.mycompany.documentation.model.Repository;
 import java.util.ArrayList;
-import java.util.Arrays;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,10 +19,9 @@ public class ReposQuery {
     NumTopics numTopicsClass = new NumTopics();
     JsonObj jsonObjClass = new JsonObj();
 
-    public String getReposWithTopic(String[] topics) {
+    public String getReposWithTopic(ArrayList<String> topics) {
         int numRepos = numReposClass.getNumRepos();
         int numTopics = numTopicsClass.getNumTopics();
-
         JSONObject jsonObj = new JSONObject();
 
         jsonObj.put("query", "query { \n"
@@ -43,14 +41,6 @@ public class ReposQuery {
                 + "          }\n"
                 + "          description\n"
                 + "          url\n"
-                + "          owner {\n"
-                + "            login\n"
-                + "          }\n"
-                + "          object(expression: \"master:README.md\") {\n"
-                + "            ... on Blob {\n"
-                + "              text\n"
-                + "            }\n"
-                + "          }\n"
                 + "        }\n"
                 + "      }\n"
                 + "      pageInfo {\n"
@@ -67,7 +57,7 @@ public class ReposQuery {
         JSONObject json = new JSONObject(jsonString);
 
         //vars repos and topics
-        String repoName, repoDescription, repoUrl, repoOwner, repoReadme, topicName;
+        String repoName, repoDescription, repoUrl, topicName;
         ArrayList<Repository> reposArrayList = new ArrayList<>();
         ArrayList<String> topicsArrayList;
 
@@ -97,49 +87,65 @@ public class ReposQuery {
             //get array of topics from repo 
             JSONArray topicsArray = repoObj.getJSONObject("node").getJSONObject("repositoryTopics").getJSONArray("edges");
 
-            //create temp list
-            ArrayList<String> tmp = new ArrayList<>();
-            //iterate over array of topics and add them to the tmp list
-            //this is done so we can compare 2 lists: topics defined by user against topics from repo
-            for (Object oo : topicsArray) {
-                JSONObject topicObj = new JSONObject(oo.toString());
+            if (topics.isEmpty()) {
+                topicsArrayList = new ArrayList<>();
+                for (Object oo : topicsArray) {
+                    JSONObject topicObj = new JSONObject(oo.toString());
 
-                //get topic name
-                topicName = topicObj.getJSONObject("node").getJSONObject("topic").getString("name");
+                    //get topic name
+                    topicName = topicObj.getJSONObject("node").getJSONObject("topic").getString("name");
+                    topicsArrayList.add(topicName);
+                }
 
-                //add topic name to array of topics
-                tmp.add(topicName);
-            }
-
-            //compare the two lists to check if all the topics defined by user are present in topic list from repo
-            if (tmp.containsAll(Arrays.asList(topics))) {
-                //get repo name
                 repoName = repoObj.getJSONObject("node").getString("name");
-
-                //get repo description
                 if (repoObj.getJSONObject("node").isNull("description")) {
                     repoDescription = "";
                 } else {
                     repoDescription = repoObj.getJSONObject("node").getString("description");
                 }
-
-                //get repo url
                 repoUrl = repoObj.getJSONObject("node").getString("url");
 
-                //get repo owner
-                repoOwner = repoObj.getJSONObject("node").getJSONObject("owner").getString("login");
+                reposArrayList.add(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, startCursor, endCursor, hasPreviousPage, hasNextPage));
+            } else {
+                //create temp list
+                ArrayList<String> tmp = new ArrayList<>();
+                //iterate over array of topics and add them to the tmp list
+                //this is done so we can compare 2 lists: topics defined by user against topics from repo
+                for (Object oo : topicsArray) {
+                    JSONObject topicObj = new JSONObject(oo.toString());
 
-                //get repo readme
-                repoReadme = repoObj.getJSONObject("node").getJSONObject("object").getString("text");
+                    //get topic name
+                    topicName = topicObj.getJSONObject("node").getJSONObject("topic").getString("name");
 
-                //add topics to array of topics
-                topicsArrayList = new ArrayList<>();
-                for (String top : tmp) {
-                    topicsArrayList.add(top);
+                    //add topic name to array of topics
+                    tmp.add(topicName);
                 }
 
-                //add all repo attributes to array of repos
-                reposArrayList.add(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, repoOwner, repoReadme/*, startCursor, endCursor, hasNextPage, hasPreviousPage*/));
+                //compare the two lists to check if all the topics defined by user are present in topic list from repo
+                //topics.add("openebench");
+                if (tmp.containsAll(topics)) {
+                    //get repo name
+                    repoName = repoObj.getJSONObject("node").getString("name");
+
+                    //get repo description
+                    if (repoObj.getJSONObject("node").isNull("description")) {
+                        repoDescription = "";
+                    } else {
+                        repoDescription = repoObj.getJSONObject("node").getString("description");
+                    }
+
+                    //get repo url
+                    repoUrl = repoObj.getJSONObject("node").getString("url");
+
+                    //add topics to array of topics
+                    topicsArrayList = new ArrayList<>();
+                    for (String top : tmp) {
+                        topicsArrayList.add(top);
+                    }
+
+                    //add all repo attributes to array of repos
+                    reposArrayList.add(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, startCursor, endCursor, hasPreviousPage, hasNextPage));
+                }
             }
         }
 
