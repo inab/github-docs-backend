@@ -24,7 +24,7 @@ public class ContributorsQuery {
 
     public String getContributors(String repo) throws MalformedURLException, IOException {
         String urlString = constructUrl(repo);
-        URL url = new URL(urlString); //https://api.github.com/repos/inab/Scientific_Barplot/contributors
+        URL url = new URL(urlString); //https://api.github.com/repos/inab/benchmarking-data-model/contributors
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestProperty("Authorization", "Bearer " + Constants.TOKEN);
 
@@ -38,13 +38,13 @@ public class ContributorsQuery {
         in.close();
 
         ArrayList<Contributor> conts = new ArrayList<>();
-        //String res2 = response.toString();
-        JSONArray res = new JSONArray(response.toString());
-        for (Object o : res) {
-            JSONObject repoObj = new JSONObject(o.toString());
+        
+        JSONArray contArray = new JSONArray(response.toString());
+        for (Object o : contArray) {
+            JSONObject contObj = new JSONObject(o.toString());
 
-            String user = repoObj.getString("login");
-            String link = repoObj.getString("url");
+            String user = contObj.getString("login");
+            String link = contObj.getString("url");
 
             conts.add(new Contributor(user, link));
         }

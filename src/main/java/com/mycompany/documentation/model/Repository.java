@@ -8,11 +8,13 @@ import java.util.ArrayList;
  */
 public class Repository {
 
+    private String id;
     private String name;
     private ArrayList<String> topics;
     private String description;
     private String url;
-    private String owner;
+    private ArrayList<String> languages;
+    private String license;
     private String readme;
     private String startCursor;
     private String endCursor;
@@ -22,12 +24,14 @@ public class Repository {
     public Repository() {
     }
 
-    public Repository(String name, ArrayList<String> topics, String description, String url, String owner, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
+    public Repository(String id, String name, ArrayList<String> topics, String description, String url, ArrayList<String> languages, String license, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
+        this.id = id;
         this.name = name;
         this.topics = topics;
         this.description = description;
         this.url = url;
-        this.owner = owner;
+        this.languages = languages;
+        this.license = license;
         this.readme = readme;
         this.startCursor = startCursor;
         this.endCursor = endCursor;
@@ -46,16 +50,12 @@ public class Repository {
         this.hasPreviousPage = hasPreviousPage;
     }
 
-    public Repository(String name, ArrayList<String> topics, String description, String url, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
-        this.name = name;
-        this.topics = topics;
-        this.description = description;
-        this.url = url;
-        this.readme = readme;
-        this.startCursor = startCursor;
-        this.endCursor = endCursor;
-        this.hasNextPage = hasNextPage;
-        this.hasPreviousPage = hasPreviousPage;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -90,12 +90,20 @@ public class Repository {
         this.url = url;
     }
 
-    public String getOwner() {
-        return owner;
+    public ArrayList<String> getLanguages() {
+        return languages;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setLanguages(ArrayList<String> languages) {
+        this.languages = languages;
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
     }
 
     public String getReadme() {

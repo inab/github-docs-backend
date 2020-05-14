@@ -1,7 +1,6 @@
 package com.mycompany.documentation.api.v4;
 
-
-import com.mycompany.documentation.api.logic.v4.Constants;
+import static com.mycompany.documentation.api.logic.v4.Constants.*;
 import com.mycompany.documentation.api.logic.v4.ReposQuery;
 import java.util.ArrayList;
 import javax.ws.rs.DefaultValue;
@@ -22,20 +21,20 @@ public class Repositories {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getReposWIthTopic(@QueryParam("t") ArrayList<String> topics,
+    public String getReposWithTopic(@QueryParam("t") ArrayList<String> topics,
+            @DefaultValue("") @QueryParam("r") String r,
             @DefaultValue("") @QueryParam("c") String c,
-            @DefaultValue("") @QueryParam("f") String f,
-            @DefaultValue("") @QueryParam("r") String r) {
+            @DefaultValue("") @QueryParam("f") String f) {
 
         ReposQuery reposQueryClass = new ReposQuery();
         ArrayList<String> topicstofilter = new ArrayList<>();
-        
-        if(!topics.isEmpty()){
-            for(String s : topics){
+
+        if (!topics.isEmpty()) {
+            for (String s : topics) {
                 topicstofilter.add(s);
             }
         }
-        topicstofilter.add(Constants.project);
+        topicstofilter.add(project);
         return reposQueryClass.getReposWithTopic(topicstofilter);
     }
 }

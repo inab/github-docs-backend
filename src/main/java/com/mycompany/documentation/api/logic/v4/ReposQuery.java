@@ -16,12 +16,10 @@ public class ReposQuery {
     }
 
     NumRepos numReposClass = new NumRepos();
-    NumTopics numTopicsClass = new NumTopics();
     JsonObj jsonObjClass = new JsonObj();
 
     public String getReposWithTopic(ArrayList<String> topics) {
         int numRepos = numReposClass.getNumRepos();
-        int numTopics = numTopicsClass.getNumTopics();
         JSONObject jsonObj = new JSONObject();
 
         jsonObj.put("query", "query { \n"
@@ -30,7 +28,7 @@ public class ReposQuery {
                 + "      edges{\n"
                 + "        node{\n"
                 + "          name\n"
-                + "          repositoryTopics(first: " + numTopics + "){\n"
+                + "          repositoryTopics(first: 10){\n"
                 + "            edges{\n"
                 + "              node{\n"
                 + "                topic{\n"
@@ -122,7 +120,6 @@ public class ReposQuery {
                 }
 
                 //compare the two lists to check if all the topics defined by user are present in topic list from repo
-                //topics.add("openebench");
                 if (tmp.containsAll(topics)) {
                     //get repo name
                     repoName = repoObj.getJSONObject("node").getString("name");

@@ -15,17 +15,16 @@ public class RepoQuery {
     public RepoQuery() {
     }
 
-    NumTopics numTopicsClass = new NumTopics();
     JsonObj jsonObjClass = new JsonObj();
 
-    public String getInabRepo(String repoName) {
-        int numTopics = numTopicsClass.getNumTopics();
+    public String getRepo(String repoName) {
         JSONObject jsonObj = new JSONObject();
 
         jsonObj.put("query", "query {\n"
                 + "  repository(name: \"" + repoName + "\", owner: \"" + owner + "\") {\n"
+                + "    id\n"
                 + "    name\n"
-                + "    repositoryTopics(first: " + numTopics + ") {\n"
+                + "    repositoryTopics(first: 10) {\n"
                 + "      edges {\n"
                 + "        node {\n"
                 + "          topic {\n"
@@ -42,6 +41,16 @@ public class RepoQuery {
                 + "    }\n"
                 + "    description\n"
                 + "    url\n"
+                + "    languages(first: 10) {\n"
+                + "      edges {\n"
+                + "        node {\n"
+                + "          name\n"
+                + "        }\n"
+                + "      }\n"
+                + "    }\n"
+                + "    licenseInfo {\n"
+                + "      key\n"
+                + "    }\n"
                 + "    object(expression: \"master:README.md\") {\n"
                 + "      ... on Blob {\n"
                 + "        text\n"
@@ -55,8 +64,9 @@ public class RepoQuery {
 
         //vars repos and topics
         Repository repo = new Repository();
-        String repoDescription, repoUrl, topicName, readme;
+        String repoId, repoDescription, repoUrl, repoLicense, repoReadme, topicName, languageName;
         ArrayList<String> topicsArrayList = new ArrayList();
+        ArrayList<String> languagesArrayList = new ArrayList();
 
         //vars pagination
         String startCursor, endCursor;
@@ -65,8 +75,8 @@ public class RepoQuery {
         //remove keys we don't need
         JSONObject repository = json.getJSONObject("data").getJSONObject("repository");
 
-        //get repo name, description, url and readme
-        repoName = repository.getString("name");
+        //get repo id, name, description, url and repoReadme
+        repoId = repository.getString("id");
 
         if (repository.isNull("description")) {
             repoDescription = "";
@@ -75,16 +85,27 @@ public class RepoQuery {
         }
 
         repoUrl = repository.getString("url");
-        readme = repository.getJSONObject("object").getString("text");
+        repoLicense = repository.getJSONObject("licenseInfo").getString("key");
+        repoReadme = repository.getJSONObject("object").getString("text");
 
         JSONArray topicsArray = repository.getJSONObject("repositoryTopics").getJSONArray("edges");
 
-        for (Object oo : topicsArray) {
-            JSONObject topicObj = new JSONObject(oo.toString());
+        for (Object o : topicsArray) {
+            JSONObject topicObj = new JSONObject(o.toString());
 
             //get topic name
             topicName = topicObj.getJSONObject("node").getJSONObject("topic").getString("name");
             topicsArrayList.add(topicName);
+        }
+
+        JSONArray languagesArray = repository.getJSONObject("languages").getJSONArray("edges");
+
+        for (Object oo : languagesArray) {
+            JSONObject languageObj = new JSONObject(oo.toString());
+
+            //get language name
+            languageName = languageObj.getJSONObject("node").getString("name");
+            languagesArrayList.add(languageName);
         }
 
         //get pageInfo
@@ -96,11 +117,14 @@ public class RepoQuery {
         hasNextPage = pageInfo.getBoolean("hasNextPage");
         hasPreviousPage = pageInfo.getBoolean("hasPreviousPage");
 
+        repo.setId(repoId);
         repo.setName(repoName);
         repo.setTopics(topicsArrayList);
         repo.setDescription(repoDescription);
         repo.setUrl(repoUrl);
-        repo.setReadme(readme);
+        repo.setLanguages(languagesArrayList);
+        repo.setLicense(repoLicense);
+        repo.setReadme(repoReadme);
         repo.setStartCursor(startCursor);
         repo.setEndCursor(endCursor);
         repo.setHasPreviousPage(hasPreviousPage);

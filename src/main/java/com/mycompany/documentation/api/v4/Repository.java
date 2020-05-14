@@ -18,9 +18,9 @@ public class Repository {
     @GET
     @Path("/{repoName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getInabRepo(@PathParam("repoName") String repoName) {
+    public String getRepo(@PathParam("repoName") String repoName) {
         RepoQuery repoQueryClass = new RepoQuery();
 
-        return repoQueryClass.getInabRepo(repoName);
+        return repoQueryClass.getRepo(repoName);
     }
 }
