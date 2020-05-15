@@ -82,6 +82,15 @@ public class ReposQuery {
         for (Object o : reposArray) {
             JSONObject repoObj = new JSONObject(o.toString());
 
+            //get repo name, description and url
+            repoName = repoObj.getJSONObject("node").getString("name");
+            if (repoObj.getJSONObject("node").isNull("description")) {
+                repoDescription = "";
+            } else {
+                repoDescription = repoObj.getJSONObject("node").getString("description");
+            }
+            repoUrl = repoObj.getJSONObject("node").getString("url");
+
             //get array of topics from repo 
             JSONArray topicsArray = repoObj.getJSONObject("node").getJSONObject("repositoryTopics").getJSONArray("edges");
 
@@ -92,17 +101,11 @@ public class ReposQuery {
 
                     //get topic name
                     topicName = topicObj.getJSONObject("node").getJSONObject("topic").getString("name");
+                    //add topic name to array of topics
                     topicsArrayList.add(topicName);
                 }
 
-                repoName = repoObj.getJSONObject("node").getString("name");
-                if (repoObj.getJSONObject("node").isNull("description")) {
-                    repoDescription = "";
-                } else {
-                    repoDescription = repoObj.getJSONObject("node").getString("description");
-                }
-                repoUrl = repoObj.getJSONObject("node").getString("url");
-
+                //add all repo attributes to array of repos
                 reposArrayList.add(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, startCursor, endCursor, hasPreviousPage, hasNextPage));
             } else {
                 //create temp list
@@ -114,26 +117,12 @@ public class ReposQuery {
 
                     //get topic name
                     topicName = topicObj.getJSONObject("node").getJSONObject("topic").getString("name");
-
                     //add topic name to array of topics
                     tmp.add(topicName);
                 }
 
                 //compare the two lists to check if all the topics defined by user are present in topic list from repo
                 if (tmp.containsAll(topics)) {
-                    //get repo name
-                    repoName = repoObj.getJSONObject("node").getString("name");
-
-                    //get repo description
-                    if (repoObj.getJSONObject("node").isNull("description")) {
-                        repoDescription = "";
-                    } else {
-                        repoDescription = repoObj.getJSONObject("node").getString("description");
-                    }
-
-                    //get repo url
-                    repoUrl = repoObj.getJSONObject("node").getString("url");
-
                     //add topics to array of topics
                     topicsArrayList = new ArrayList<>();
                     for (String top : tmp) {

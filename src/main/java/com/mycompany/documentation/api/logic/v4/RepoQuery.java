@@ -75,19 +75,26 @@ public class RepoQuery {
         //remove keys we don't need
         JSONObject repository = json.getJSONObject("data").getJSONObject("repository");
 
-        //get repo id, name, description, url and repoReadme
+        //get repo id, description, url, license and readme
         repoId = repository.getString("id");
-
         if (repository.isNull("description")) {
             repoDescription = "";
         } else {
             repoDescription = repository.getString("description");
         }
-
         repoUrl = repository.getString("url");
-        repoLicense = repository.getJSONObject("licenseInfo").getString("key");
-        repoReadme = repository.getJSONObject("object").getString("text");
+        if (repository.isNull("licenseInfo")) {
+            repoLicense = "";
+        } else {
+            repoLicense = repository.getJSONObject("licenseInfo").getString("key");
+        }
+        if (repository.isNull("object")) {
+            repoReadme = "";
+        } else {
+            repoReadme = repository.getJSONObject("object").getString("text");
+        }
 
+        //get array of topics from repo
         JSONArray topicsArray = repository.getJSONObject("repositoryTopics").getJSONArray("edges");
 
         for (Object o : topicsArray) {
@@ -95,9 +102,11 @@ public class RepoQuery {
 
             //get topic name
             topicName = topicObj.getJSONObject("node").getJSONObject("topic").getString("name");
+            //add topic name to array of topics
             topicsArrayList.add(topicName);
         }
 
+        //get array of languages from repo
         JSONArray languagesArray = repository.getJSONObject("languages").getJSONArray("edges");
 
         for (Object oo : languagesArray) {
@@ -105,6 +114,7 @@ public class RepoQuery {
 
             //get language name
             languageName = languageObj.getJSONObject("node").getString("name");
+            //add language name to array of languages
             languagesArrayList.add(languageName);
         }
 
