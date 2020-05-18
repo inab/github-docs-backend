@@ -16,6 +16,7 @@ public class Repository {
     private ArrayList<String> languages;
     private String license;
     private String readme;
+    private ArrayList<Contributor> contributors;
     private String startCursor;
     private String endCursor;
     private boolean hasNextPage;
@@ -24,6 +25,24 @@ public class Repository {
     public Repository() {
     }
 
+    //repository with contributors
+    public Repository(String id, String name, ArrayList<String> topics, String description, String url, ArrayList<String> languages, String license, String readme, ArrayList<Contributor> contributors, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
+        this.id = id;
+        this.name = name;
+        this.topics = topics;
+        this.description = description;
+        this.url = url;
+        this.languages = languages;
+        this.license = license;
+        this.readme = readme;
+        this.contributors = contributors;
+        this.startCursor = startCursor;
+        this.endCursor = endCursor;
+        this.hasNextPage = hasNextPage;
+        this.hasPreviousPage = hasPreviousPage;
+    }
+
+    //repository without contributors
     public Repository(String id, String name, ArrayList<String> topics, String description, String url, ArrayList<String> languages, String license, String readme, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
         this.id = id;
         this.name = name;
@@ -39,6 +58,7 @@ public class Repository {
         this.hasPreviousPage = hasPreviousPage;
     }
 
+    //list of repositories with topic(s)
     public Repository(String name, ArrayList<String> topics, String description, String url, String startCursor, String endCursor, boolean hasNextPage, boolean hasPreviousPage) {
         this.name = name;
         this.topics = topics;
@@ -114,6 +134,14 @@ public class Repository {
         this.readme = readme;
     }
 
+    public ArrayList<Contributor> getContributors() {
+        return contributors;
+    }
+
+    public void setContributors(ArrayList<Contributor> contributors) {
+        this.contributors = contributors;
+    }
+
     public String getStartCursor() {
         return startCursor;
     }
@@ -144,5 +172,25 @@ public class Repository {
 
     public void setHasPreviousPage(boolean hasPreviousPage) {
         this.hasPreviousPage = hasPreviousPage;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Repository{id=").append(id);
+        sb.append(", name=").append(name);
+        sb.append(", topics=").append(topics);
+        sb.append(", description=").append(description);
+        sb.append(", url=").append(url);
+        sb.append(", languages=").append(languages);
+        sb.append(", license=").append(license);
+        sb.append(", readme=").append(readme);
+        sb.append(", contributors=").append(contributors);
+        sb.append(", startCursor=").append(startCursor);
+        sb.append(", endCursor=").append(endCursor);
+        sb.append(", hasNextPage=").append(hasNextPage);
+        sb.append(", hasPreviousPage=").append(hasPreviousPage);
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -32,4 +32,13 @@ public class Contributor {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Contributor{login=").append(login);
+        sb.append(", url=").append(url);
+        sb.append('}');
+        return sb.toString();
+    }
 }

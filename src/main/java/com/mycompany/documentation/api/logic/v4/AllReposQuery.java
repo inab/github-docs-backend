@@ -18,7 +18,7 @@ public class AllReposQuery {
     NumRepos numReposClass = new NumRepos();
     JsonObj jsonObjClass = new JsonObj();
 
-    public String getAllReposWithTopic(ArrayList<String> topics) {
+    public JSONArray getAllReposWithTopic(ArrayList<String> topics) {
         int numRepos = numReposClass.getNumRepos();
         JSONObject jsonObj = new JSONObject();
 
@@ -89,8 +89,8 @@ public class AllReposQuery {
         //get startCursor, endCursor, hasNextPage, hasPreviousPage
         startCursor = pageInfo.getString("startCursor");
         endCursor = pageInfo.getString("endCursor");
-        hasNextPage = pageInfo.getBoolean("hasNextPage");
         hasPreviousPage = pageInfo.getBoolean("hasPreviousPage");
+        hasNextPage = pageInfo.getBoolean("hasNextPage");
 
         //get array of repos returned by github
         JSONArray reposArray = repositories.getJSONArray("edges");
@@ -173,6 +173,7 @@ public class AllReposQuery {
         //parse java object back to json
         JSONArray res = new JSONArray(reposArrayList);
 
-        return res.toString();
+        //return res.toString();
+        return res;
     }
 }

@@ -17,7 +17,7 @@ public class RepoQuery {
 
     JsonObj jsonObjClass = new JsonObj();
 
-    public String getRepo(String repoName) {
+    public JSONObject getRepo(String repoName) {
         JSONObject jsonObj = new JSONObject();
 
         jsonObj.put("query", "query {\n"
@@ -143,6 +143,6 @@ public class RepoQuery {
         //parse java object back to json
         JSONObject res = new JSONObject(repo);
 
-        return res.toString();
+        return res;
     }
 }
