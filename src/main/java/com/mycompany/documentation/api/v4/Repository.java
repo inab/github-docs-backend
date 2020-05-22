@@ -8,7 +8,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -27,7 +26,7 @@ public class Repository {
         ContributorsQuery contsQueryClass = new ContributorsQuery();
 
         JSONObject repoObj = repoQueryClass.getRepo(repoName);
-        JSONArray conts = contsQueryClass.getContributors(repoName);
+        JSONObject conts = contsQueryClass.getContributors(repoName);
         repoObj.append("contributors", conts);
 
         return repoObj.toString();
