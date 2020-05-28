@@ -22,7 +22,7 @@ public class ContributorsQuery {
         return "https://api.github.com/repos/" + owner + "/" + repo + "/contributors";
     }
 
-    public JSONObject getContributors(String repo) throws MalformedURLException, IOException {
+    public JSONArray getContributors(String repo) throws MalformedURLException, IOException {
         String urlString = constructUrl(repo);
         URL url = new URL(urlString); //https://api.github.com/repos/inab/benchmarking-data-model/contributors
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -50,8 +50,7 @@ public class ContributorsQuery {
             conts.add(new Contributor(user, link));
         }
 
-        JSONObject resp = new JSONObject(conts);
-        System.out.println(resp);
+        JSONArray resp = new JSONArray(conts);
 
         return resp;
     }
