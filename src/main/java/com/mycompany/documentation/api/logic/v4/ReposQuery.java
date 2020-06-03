@@ -23,7 +23,7 @@ public class ReposQuery {
         JSONObject jsonObj = new JSONObject();
 
         jsonObj.put("query", "query { \n"
-                + "  repositoryOwner(login: \"" + login + "\"){\n"
+                + "  repositoryOwner(login: \"" + LOGIN + "\"){\n"
                 + "    repositories(first: " + numRepos + "){\n"
                 + "      edges{\n"
                 + "        node{\n"
@@ -148,7 +148,7 @@ public class ReposQuery {
         JSONObject jsonObj = new JSONObject();
 
         jsonObj.put("query", "query { \n"
-                + "  repositoryOwner(login: \"" + login + "\"){\n"
+                + "  repositoryOwner(LOGIN: \"" + LOGIN + "\"){\n"
                 + "    repositories(first: " + numRepos + "){\n"
                 + "      edges{\n"
                 + "        node{\n"
@@ -164,8 +164,8 @@ public class ReposQuery {
                 + "          }\n"
                 + "          description\n"
                 + "          url\n"
-                + "          owner {\n"
-                + "            login\n"
+                + "          OWNER {\n"
+                + "            LOGIN\n"
                 + "          }\n"
                 + "          object(expression: \"master:README.md\") {\n"
                 + "            ... on Blob {\n"
@@ -247,8 +247,8 @@ public class ReposQuery {
                 //get repo url
                 repoUrl = repoObj.getJSONObject("node").getString("url");
 
-                //get repo owner
-                repoOwner = repoObj.getJSONObject("node").getJSONObject("owner").getString("login");
+                //get repo OWNER
+                repoOwner = repoObj.getJSONObject("node").getJSONObject("OWNER").getString("LOGIN");
 
                 //get repo readme
                 repoReadme = repoObj.getJSONObject("node").getJSONObject("object").getString("text");

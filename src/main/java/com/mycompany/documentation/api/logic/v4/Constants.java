@@ -12,15 +12,19 @@ import java.util.Properties;
 //This class contains all the static variables.
 public class Constants {
 
-    public static String TOKEN = "";
+    public static String TOKEN, GITHUBAPIV4, LOGIN, OWNER, PROJECT;
 
-    // This file is only on the server. It contains the Token
+    // This file is only on the server. It contains the OEB configuration
     static {
-        try (InputStream in = Constants.class.getClassLoader().getResourceAsStream("/META-INF/config.properties")) {
+        try (InputStream in = Constants.class.getClassLoader().getResourceAsStream("/META-INF/oebConfig.properties")) {
             if (in != null) {
                 Properties appSettings = new Properties();
                 appSettings.load(in);
                 TOKEN = appSettings.getProperty("token");
+                GITHUBAPIV4 = appSettings.getProperty("githubApiV4");
+                LOGIN = appSettings.getProperty("login");
+                OWNER = appSettings.getProperty("owner");
+                PROJECT = appSettings.getProperty("project");
             }
 
         } catch (IOException e) {
@@ -29,12 +33,6 @@ public class Constants {
         }
     }
 
-    public static String githubApiV4 = "https://api.github.com/graphql";
-    public static String login = "inab";
-    public static String owner = "inab";
-    public static String project = "openebench";
-
-    //repo topics
     public static ArrayList<Topic> topics = new ArrayList();
 
     static {

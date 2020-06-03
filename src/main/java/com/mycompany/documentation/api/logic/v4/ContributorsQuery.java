@@ -1,6 +1,5 @@
 package com.mycompany.documentation.api.logic.v4;
 
-import static com.mycompany.documentation.api.logic.v4.Constants.owner;
 import com.mycompany.documentation.model.Contributor;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import static com.mycompany.documentation.api.logic.v4.Constants.OWNER;
 
 /**
  *
@@ -19,7 +19,7 @@ import org.json.JSONObject;
 public class ContributorsQuery {
 
     public String constructUrl(String repo) {
-        return "https://api.github.com/repos/" + owner + "/" + repo + "/contributors";
+        return "https://api.github.com/repos/" + OWNER + "/" + repo + "/contributors";
     }
 
     public JSONArray getContributors(String repo) throws MalformedURLException, IOException {
@@ -38,10 +38,9 @@ public class ContributorsQuery {
         in.close();
 
         ArrayList<Contributor> conts = new ArrayList<>();
-        
+
         JSONArray contArray = new JSONArray(response.toString());
         for (Object o : contArray) {
-            System.out.println(o);
             JSONObject contObj = new JSONObject(o.toString());
 
             String user = contObj.getString("login");

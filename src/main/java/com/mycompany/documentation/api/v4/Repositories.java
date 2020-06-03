@@ -34,7 +34,7 @@ public class Repositories {
                 topicstofilter.add(s);
             }
         }
-        topicstofilter.add(project);
+        topicstofilter.add(PROJECT);
         return reposQueryClass.getReposWithTopic(topicstofilter);
     }
 }

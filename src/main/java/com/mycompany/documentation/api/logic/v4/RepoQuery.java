@@ -21,7 +21,7 @@ public class RepoQuery {
         JSONObject jsonObj = new JSONObject();
 
         jsonObj.put("query", "query {\n"
-                + "  repository(name: \"" + repoName + "\", owner: \"" + owner + "\") {\n"
+                + "  repository(name: \"" + repoName + "\", owner: \"" + OWNER + "\") {\n"
                 + "    id\n"
                 + "    name\n"
                 + "    repositoryTopics(first: 10) {\n"

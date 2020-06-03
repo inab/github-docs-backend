@@ -33,7 +33,7 @@ public class JsonObj {
             //create the request
             HttpClient client = HttpClients.createDefault();
             //define the http verb (GET, POST, PUT..)
-            HttpPost post = new HttpPost(githubApiV4);
+            HttpPost post = new HttpPost(GITHUBAPIV4);
             //add the token to the header
             post.addHeader("Authorization", "Bearer " + TOKEN);
             post.addHeader("Accept", "application/json");

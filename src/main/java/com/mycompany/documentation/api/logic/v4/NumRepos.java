@@ -15,7 +15,7 @@ public class NumRepos {
     JsonObj jsonObjClass = new JsonObj();
 
     /**
-     * It retrieves the number of repos of an owner
+     * It retrieves the number of repos of an OWNER
      *
      * @return int num of repos
      */
@@ -23,7 +23,7 @@ public class NumRepos {
         JSONObject jsonObj = new JSONObject();
 
         jsonObj.put("query", "query {\n"
-                + "  repositoryOwner(login: \"" + login + "\") {\n"
+                + "  repositoryOwner(login: \"" + LOGIN + "\") {\n"
                 + "    repositories(first: 100) {\n"
                 + "      totalCount\n"
                 + "    }\n"
