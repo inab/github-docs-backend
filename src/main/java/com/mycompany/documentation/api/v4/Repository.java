@@ -19,6 +19,12 @@ import org.json.JSONObject;
 @Produces(MediaType.APPLICATION_JSON)
 public class Repository {
 
+    /**
+     *
+     * @param repoName
+     * @return
+     * @throws java.io.IOException
+     */
     @GET
     @Path("/{repoName}")
     @Produces(MediaType.APPLICATION_JSON)

@@ -93,6 +93,8 @@ public class RepoQuery {
         } else {
             repoReadme = repository.getJSONObject("object").getString("text");
         }
+        MdToHtmlParser mdToHtml = new MdToHtmlParser();
+        String repoReadme_html = mdToHtml.mdToHtml(repoReadme, repoName);
 
         //get array of topics from repo
         JSONArray topicsArray = repository.getJSONObject("repositoryTopics").getJSONArray("edges");
@@ -134,7 +136,7 @@ public class RepoQuery {
         repo.setUrl(repoUrl);
         repo.setLanguages(languagesArrayList);
         repo.setLicense(repoLicense);
-        repo.setReadme(repoReadme);
+        repo.setReadme(repoReadme_html);
         repo.setStartCursor(startCursor);
         repo.setEndCursor(endCursor);
         repo.setHasPreviousPage(hasPreviousPage);
