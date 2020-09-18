@@ -22,19 +22,24 @@ public class Repositories {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public String getReposWithTopic(@QueryParam("t") ArrayList<String> topics,
+            @QueryParam("s") String typeSelect,
             @DefaultValue("") @QueryParam("r") String r,
             @DefaultValue("") @QueryParam("c") String c,
             @DefaultValue("") @QueryParam("f") String f) {
 
         ReposQuery reposQueryClass = new ReposQuery();
         ArrayList<String> topicstofilter = new ArrayList<>();
-
         if (!topics.isEmpty()) {
             for (String s : topics) {
                 topicstofilter.add(s);
             }
         }
         topicstofilter.add(PROJECT);
-        return reposQueryClass.getReposWithTopic(topicstofilter);
+        if ("inclusive".equals(typeSelect) && !topics.isEmpty()) {
+            return reposQueryClass.getReposWithTopic(topics, typeSelect);
+        } else {
+            return reposQueryClass.getReposWithTopic(topicstofilter, typeSelect);
+        }
+        
     }
 }
