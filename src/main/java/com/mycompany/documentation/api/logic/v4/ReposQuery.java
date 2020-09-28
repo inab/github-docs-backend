@@ -176,6 +176,29 @@ public class ReposQuery {
                         //add all repo attributes to array of repos
                         reposArrayList.add(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, startCursor, endCursor, hasPreviousPage, hasNextPage));
                     }
+                } else {
+                    boolean repoExist = false;
+                    topicsArrayList = new ArrayList<>();
+                    
+//for of all the repos 
+                    for (Repository repo : reposArrayList) {
+                        //compare the url repo of the array against the repoURL from the actual repo
+                        if (repo.getUrl().equals(repoUrl)) {
+                            //if its the same repo exist.
+                            repoExist = true;
+                        }
+                    }
+
+                    for (String top : tmp) {
+                        topicsArrayList.add(top);
+                    }
+                    
+                    //if the repo do not exist add the repo to the array
+                    if (!repoExist) {
+                        reposArrayList.add(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, startCursor, endCursor, hasPreviousPage, hasNextPage)); 
+                    }
+                    
+                    
                 }
                 
             }

@@ -144,7 +144,6 @@ public class RepoQuery {
 
         //parse java object back to json
         JSONObject res = new JSONObject(repo);
-
         return res;
     }
 }
