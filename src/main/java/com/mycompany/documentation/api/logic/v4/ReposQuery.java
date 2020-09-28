@@ -124,37 +124,48 @@ public class ReposQuery {
                     tmp.add(topicName);
                 }
 
+                //if type of select is inclusive
                 if ("inclusive".equals(typeSelect)) {
-                    ArrayList<String> openebench = new ArrayList<>();
-                    openebench.add("openebench");
+                    //boolean to know if repo exist
                     boolean repoExist = false;
+                    //for of all topics
                     for (int t = 0; t < topics.size(); t++) {
-                        if (tmp.contains(topics.get(t)) && topics != openebench) {
+                        //topics is an array of the selected topics
+                        //tmp is an array with all the topics of the actual repo
+                        if (tmp.contains(topics.get(t))) {
+                            //create array for add the repos to show
                             topicsArrayList = new ArrayList<>();
+                            //if repo has the topic selected, add the repo to an array
                             for (String top : tmp) {
                                 topicsArrayList.add(top);
                             }
-        
+                            
+                            //if the repo is not in the array...
                             if (!reposArrayList.contains(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, startCursor, endCursor, hasPreviousPage, hasNextPage))) {
-                                //get an iterator
-                                Iterator<Repository> iterator = reposArrayList.iterator();
+                                //for of all the repos 
                                 for (Repository repo : reposArrayList) {
+                                    //compare the url repo of the array against the repoURL from the actual repo
                                     if (repo.getUrl().equals(repoUrl)) {
+                                        //if its the same repo exist.
                                         repoExist = true;
                                     }
                                 }
                                 
+                                //if the repo do not exist add the repo to the array
                                 if (!repoExist) {
                                     reposArrayList.add(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, startCursor, endCursor, hasPreviousPage, hasNextPage)); 
                                 }
-                                
                             }
                             
                         }
                     }
-                    
+                //if type of select is exclusive
                 } else if ("exclusive".equals(typeSelect)) {
+                    //tmp is an array with all the topics of the actual repo
+                    //topics is an array of the selected topics
                     //compare the two lists to check if all the topics defined by user are present in topic list from repo
+                    
+                    //if tmp has all the selected topics...
                     if (tmp.containsAll(topics)) {
                         //add topics to array of topics
                         topicsArrayList = new ArrayList<>();
