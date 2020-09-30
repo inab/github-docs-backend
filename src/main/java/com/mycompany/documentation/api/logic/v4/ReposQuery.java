@@ -80,7 +80,7 @@ public class ReposQuery {
 
         //get array of repos returned by github
         JSONArray reposArray = repositories.getJSONArray("edges");
-
+        
         //iterate over array of repos, find if repositoryTopics contains topics defined by user
         for (Object o : reposArray) {
             JSONObject repoObj = new JSONObject(o.toString());
@@ -123,7 +123,7 @@ public class ReposQuery {
                     //add topic name to array of topics
                     tmp.add(topicName);
                 }
-
+                
                 //if type of select is inclusive
                 if ("inclusive".equals(typeSelect)) {
                     //boolean to know if repo exist
@@ -155,16 +155,15 @@ public class ReposQuery {
                                 if (!repoExist) {
                                     reposArrayList.add(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, startCursor, endCursor, hasPreviousPage, hasNextPage)); 
                                 }
-                            }
-                            
+                            }  
                         }
                     }
                 //if type of select is exclusive
-                } else if ("exclusive".equals(typeSelect)) {
+                } else {
                     //tmp is an array with all the topics of the actual repo
                     //topics is an array of the selected topics
                     //compare the two lists to check if all the topics defined by user are present in topic list from repo
-                    
+                    boolean repoExist = false;
                     //if tmp has all the selected topics...
                     if (tmp.containsAll(topics)) {
                         //add topics to array of topics
@@ -172,40 +171,29 @@ public class ReposQuery {
                         for (String top : tmp) {
                             topicsArrayList.add(top);
                         }
-
-                        //add all repo attributes to array of repos
-                        reposArrayList.add(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, startCursor, endCursor, hasPreviousPage, hasNextPage));
-                    }
-                } else {
-                    boolean repoExist = false;
-                    topicsArrayList = new ArrayList<>();
-                    
-//for of all the repos 
-                    for (Repository repo : reposArrayList) {
-                        //compare the url repo of the array against the repoURL from the actual repo
-                        if (repo.getUrl().equals(repoUrl)) {
-                            //if its the same repo exist.
-                            repoExist = true;
+                        
+                        if (!reposArrayList.contains(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, startCursor, endCursor, hasPreviousPage, hasNextPage))) {
+                                //for of all the repos 
+                            for (Repository repo : reposArrayList) {
+                                //compare the url repo of the array against the repoURL from the actual repo
+                                if (repo.getUrl().equals(repoUrl)) {
+                                    //if its the same repo exist.
+                                    repoExist = true;
+                                }
+                            }
+                                
+                            //if the repo do not exist add the repo to the array
+                            if (!repoExist) {
+                                //add all repo attributes to array of repos
+                                reposArrayList.add(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, startCursor, endCursor, hasPreviousPage, hasNextPage)); 
+                            }
                         }
                     }
-
-                    for (String top : tmp) {
-                        topicsArrayList.add(top);
-                    }
-                    
-                    //if the repo do not exist add the repo to the array
-                    if (!repoExist) {
-                        reposArrayList.add(new Repository(repoName, topicsArrayList, repoDescription, repoUrl, startCursor, endCursor, hasPreviousPage, hasNextPage)); 
-                    }
-                    
-                    
                 }
-                
             }
         }
 
         JSONArray res = new JSONArray(reposArrayList);
-
         return res.toString();
     }
 }

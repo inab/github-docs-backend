@@ -35,11 +35,12 @@ public class Repositories {
             }
         }
         topicstofilter.add(PROJECT);
-        if ("inclusive".equals(typeSelect) && !topics.isEmpty()) {
-            return reposQueryClass.getReposWithTopic(topics, typeSelect);
+        if ("inclusive".equals(typeSelect) && !topicstofilter.isEmpty()) {
+            return reposQueryClass.getReposWithTopic(topicstofilter, typeSelect);
+        } else if ("exclusive".equals(typeSelect) && !topicstofilter.isEmpty()) {
+            return reposQueryClass.getReposWithTopic(topicstofilter, typeSelect);
         } else {
             return reposQueryClass.getReposWithTopic(topicstofilter, typeSelect);
         }
-        
     }
 }
