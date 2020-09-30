@@ -1,5 +1,6 @@
 package com.mycompany.documentation.api.v4;
 
+import com.mycompany.documentation.api.logic.v4.Allrepos;
 import static com.mycompany.documentation.api.logic.v4.Constants.*;
 import com.mycompany.documentation.api.logic.v4.ReposQuery;
 import java.util.ArrayList;
@@ -35,6 +36,6 @@ public class Repositories {
             }
         }
         topicstofilter.add(PROJECT);
-        return reposQueryClass.getReposWithTopic(topicstofilter);
+        return reposQueryClass.getReposWithTopic(topicstofilter,null);
     }
 }

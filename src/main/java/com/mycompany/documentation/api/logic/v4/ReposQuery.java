@@ -17,14 +17,16 @@ public class ReposQuery {
 
     NumRepos numReposClass = new NumRepos();
     JsonObj jsonObjClass = new JsonObj();
+    
+    JSONArray reposArray = new JSONArray();
 
-    public String getReposWithTopic(ArrayList<String> topics) {
+    public String getReposWithTopic(ArrayList<String> topics, String cursor) {
         int numRepos = numReposClass.getNumRepos();
         JSONObject jsonObj = new JSONObject();
 
         jsonObj.put("query", "query { \n"
                 + "  repositoryOwner(login: \"" + LOGIN + "\"){\n"
-                + "    repositories(first: " + numRepos + "){\n"
+                + "    repositories(first: " + numRepos + ",after: "+ cursor + "){\n"
                 + "      edges{\n"
                 + "        node{\n"
                 + "          name\n"
@@ -64,6 +66,7 @@ public class ReposQuery {
         Boolean hasNextPage, hasPreviousPage;
 
         //remove keys we don't need
+        System.out.println(json);
         JSONObject repositories = json.getJSONObject("data").getJSONObject("repositoryOwner").getJSONObject("repositories");
 
         //get pageInfo
@@ -76,7 +79,15 @@ public class ReposQuery {
         hasPreviousPage = pageInfo.getBoolean("hasPreviousPage");
 
         //get array of repos returned by github
-        JSONArray reposArray = repositories.getJSONArray("edges");
+        for(int i = 0; i<repositories.getJSONArray("edges").length(); i++){
+            reposArray.put(repositories.getJSONArray("edges").get(i));
+        }
+        
+        // if there is a next page use recursion to fill the reposarray
+        if(hasNextPage){
+            char quote = '"';
+            getReposWithTopic(topics,quote+endCursor+quote);
+        }
 
         //iterate over array of repos, find if repositoryTopics contains topics defined by user
         for (Object o : reposArray) {
